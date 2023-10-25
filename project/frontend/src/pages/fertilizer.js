@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SearchForm = () => {
+const Fertilizers = () => {
   const [name, setName] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/search', { name });
+      const response = await axios.post('http://localhost:3005/fertilizers', { name });
       setSearchResult(response.data);
     } catch (error) {
       console.error('Error searching:', error);
@@ -38,4 +38,4 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+export default Fertilizers;
