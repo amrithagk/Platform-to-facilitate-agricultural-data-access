@@ -2,34 +2,38 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
-
+const cors = require('cors');
 const app = express();
 const port = 3000; // Your desired port
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const supabase = createClient(
-    process.env.PROJECT_URL,
-    process.env.API_KEY
+    "https://qwpwcrtfydenkqxmpvhg.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF3cHdjcnRmeWRlbmtxeG1wdmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTczNjYyMzcsImV4cCI6MjAxMjk0MjIzN30.XaHdcpwf4YDu7H6Pyq4lyBtTUoOiJEUTqegyMuR07h4"
 );
 
+
 app.post('/fertilizers', async (req, res) => {
-    const { name } = req.body; // Assuming the name is sent in the request body
-  
-    try {
+  const name = req.body.name; // Assuming the name is sent in the request body
+  console.log(name)
+  try {
+      //const user = supabase.auth.user();
       const { data, error } = await supabase
-        .from('your_table_name')
+        .from('Crop')
         .select('*')
-        .eq('name', name);
+        .eq("Name", name);
   
       if (error) {
         return res.status(500).json({ error: 'Error searching the database.' });
       }
   
       if (data && data.length > 0) {
-        return res.json(data);
+        console.log("data", data)
+        return res.send(data);
       } else {
         return res.status(404).json({ message: 'No matching records found.' });
       }

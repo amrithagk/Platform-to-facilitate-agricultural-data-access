@@ -7,8 +7,27 @@ const Fertilizers = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.post('http://localhost:3005/fertilizers', { name });
+      console.log("name is ", name);
+      const response = await axios.post(
+        'http://localhost:3000/fertilizers', 
+        { name });
+      console.log("request sent")
+      /* const response = await fetch('/fertilizers',
+        {
+          method:'POST',
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+          body: name
+        }
+      ) */
       setSearchResult(response.data);
+      console.log(searchResult);
     } catch (error) {
       console.error('Error searching:', error);
     }
@@ -29,7 +48,7 @@ const Fertilizers = () => {
           <h2>Search Results:</h2>
           <ul>
             {searchResult.map((result) => (
-              <li key={result.id}>{result.name}</li>
+              <li key={result.id}>{result.Stringify()}</li>
             ))}
           </ul>
         </div>
