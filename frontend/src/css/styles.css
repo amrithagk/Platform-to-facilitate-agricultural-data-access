@@ -1,0 +1,33 @@
+/* Define light green color for header cells */
+.table-container {
+    margin: 0 auto; /* Center the table within the container */
+  }
+table {
+    border-collapse: separate;
+    border-spacing: 3px;
+    margin: 20px;
+    width: 70%;
+    margin: 20px;
+  }
+  
+  th {
+    background-color: #82ea9e;
+    padding: 8px;
+    text-align: left;
+    border-radius: 5px;
+  }
+  
+  /* Define white color for body cells */
+  td {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  
+  /* Add spacing between cells */
+  table {
+    border-spacing: 3;
+  }
+  
+
+  
