@@ -12,12 +12,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const supabase = createClient(
-    "https://qwpwcrtfydenkqxmpvhg.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF3cHdjcnRmeWRlbmtxeG1wdmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTczNjYyMzcsImV4cCI6MjAxMjk0MjIzN30.XaHdcpwf4YDu7H6Pyq4lyBtTUoOiJEUTqegyMuR07h4"
+    process.env.PROJECT_URL,
+    process.env.API_KEY
 );
 
+//console.log(supabase, "supa client")
 
-app.post('/fertilizers', async (req, res) => {
+app.post('/crops', async (req, res) => {
   const name = req.body.name; // Assuming the name is sent in the request body
   console.log(name)
   try {
@@ -42,30 +43,35 @@ app.post('/fertilizers', async (req, res) => {
     }
 });
 
+app.post('/fertilizers', async (req, res) => {
+  const name = req.body.name; // Assuming the name is sent in the request body
+  console.log(name)
+  try {
+      //const user = supabase.auth.user();
+      const { data, error } = await supabase
+      .from('Requires')
+  .select('*')
+  .filter('Crop.Scientific_Name', 'eq', 'Requires.Scientific_Name') // Condition for the join
+  .join('Crop', { type: 'inner' })
+  .eq('Name', name)
+      
+  
+      if (error) {
+        return res.status(500).json({ error: 'Error searching the database.' });
+      }
+  
+      if (data && data.length > 0) {
+        console.log("data", data)
+        return res.send(data);
+      } else {
+        return res.status(404).json({ message: 'No matching records found.' });
+      }
+    } catch (err) {
+      return res.status(500).json({ error: 'Server error.' });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-/* export default async function handler(req, res) {
-    if (req.method === 'POST') {
-        const { name, email, message } = req.body;
-        try {
-            await supabase.from('Fertilizers').select([{ name: name, email: email, message: message }]);
-            return res.status(201).json({ message: "Message sent successfully" });
-        } catch (error) {
-            console.log("Error", error);
-            return res.status(500).json({ message: "There was an issue sending your message." })
-        }
-    } else {
-        return res.status(405).end()
-    }
-}
-
-const tableListener = supabase
-  .from('your_table_name')
-  .on('INSERT', (payload) => {
-    console.log('New row inserted:', payload.new);
-  })
-  .subscribe(); */
-
-  // Start the Express.js server

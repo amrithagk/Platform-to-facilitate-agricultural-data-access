@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ResultTable from '../components/resulttable';
 
-const Fertilizers = () => {
+const Crops = () => {
   const [name, setName] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/fertilizers',
+        'http://localhost:3000/crops',
         { name }
       );
       setSearchResult(response.data);
@@ -37,4 +37,4 @@ const Fertilizers = () => {
   );
 };
 
-export default Fertilizers;
+export default Crops;

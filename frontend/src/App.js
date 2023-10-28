@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Fertilizers from './pages/fertilizers';
 import Navigation from './navigation';
+import Fertilizers from './pages/fertilizers';
+import Crops from './pages/crops';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Navigation/>
         <Routes>
           <Route path="/fertilizers" element={<Fertilizers />}></Route>
+          <Route path="/crops" element={<Crops />}></Route>
         </Routes>
     </div>
   );
