@@ -14,7 +14,7 @@ router.post('/:role', async (req, res) => {
 
   try {
     const { data, error } = await supabase
-      .from('your_table_name')
+      .from(role)
       .select('email', 'password')
       .eq('email', email);
 
