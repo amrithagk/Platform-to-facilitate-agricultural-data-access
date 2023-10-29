@@ -17,7 +17,7 @@ router.post('/:role', async (req, res) => {
       .from(role)
       .select('email', 'password')
       .eq('email', email);
-
+    
     if (error) {
       return res.status(500).json({ error: 'Error searching the database.' });
     }

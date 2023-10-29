@@ -3,8 +3,8 @@ import axios from 'axios';
 import './Login.css';
 
 const LoginSignUp = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
   const [role, setRole] = useState('Dealer');
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
@@ -21,13 +21,14 @@ const LoginSignUp = () => {
     setIsLogin((prev) => !prev);
   };
 
-  const handleRoleToggle = () => {
+  const handleRoleToggle = (e) => {
     setRole((prev) => (prev === 'Dealer' ? 'Farmer' : 'Dealer'));
   };
 
-  const handleAuth = async () => {
+  const handleAuth = async (e) => {
     try {
-      const userData = { email, password, role };
+        e.preventDefault();
+      const userData = { Email, Password };
 
       if (!isLogin) {
         // Additional fields for signup
@@ -42,9 +43,16 @@ const LoginSignUp = () => {
 
       if (isLogin) {
         // Login
+        try{
         const response = await axios.post(`http://localhost:5000/login/${role}`, userData);
         const token = response.data.token;
+        localStorage.setItem('user',)
         console.log('Login successful! Token:', token);
+        localStorage.setItem('user',userData);
+        }
+        catch(err){
+          console.log('Login Failed Error');
+        }
         // Save the token in localStorage or state for future requests
       } else {
         // Signup
@@ -73,7 +81,7 @@ const LoginSignUp = () => {
               </button>
             </div>
             <div className="card-body">
-              <form onSubmit={(e) => { e.preventDefault(); handleAuth(); }}>
+              <form onSubmit={(e) => { handleAuth(e); }}>
                 {!isLogin && role === 'Farmer' && (
                   <>
                     <div className="mb-3">
@@ -174,7 +182,7 @@ const LoginSignUp = () => {
                     id="email"
                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     required
-                    value={email}
+                    value={Email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -189,7 +197,7 @@ const LoginSignUp = () => {
                     id="password"
                     pattern="^(?=.*[A-Za-z\d]).{8,}$"
                     required
-                    value={password}
+                    value={Password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   {!isLogin && (

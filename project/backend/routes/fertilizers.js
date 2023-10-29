@@ -1,6 +1,6 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-
+// require('../dotenv').config();
 const router = express.Router();
 const supabase = createClient(
   process.env.PROJECT_URL,

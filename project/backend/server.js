@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 const port = 5000; // Your desired port
-
+// console.log(process.env)
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
