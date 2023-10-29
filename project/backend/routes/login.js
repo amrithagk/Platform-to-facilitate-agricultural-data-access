@@ -15,20 +15,21 @@ router.post('/:role', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from(role)
-      .select('email', 'password')
-      .eq('email', email);
-    
+      .select('Email', 'Password')
+      .eq('Email', email);
+    console.log(error);
     if (error) {
       return res.status(500).json({ error: 'Error searching the database.' });
     }
 
     if (password == data.password) {
-      return res.status(200).send('Login Successfull');
+      return res.status(200).send(data);
     } else {
       return res.status(401).send('Password is not matching!!!:(');
     }
   } catch (err) {
-    return res.status(500).json({ error: 'Server error.' });
+    console.log(err)
+    return res.status(500).json({ error: `Server ${err}  error.` });
   }
 });
 

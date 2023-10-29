@@ -16,6 +16,7 @@ router.post('/:role', async (req, res) => {
   const { data, error } = await supabase
     .from(role)
     .insert(req.body);
+    
   if (error) {
     return res.status(500).json({ error: `Error while inserting ${error.message} to the database` });
   }

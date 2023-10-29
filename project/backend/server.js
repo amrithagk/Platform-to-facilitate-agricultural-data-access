@@ -15,11 +15,13 @@ app.use(cors());
 const fertilizersRoute = require('./routes/fertilizers');
 const loginRoute = require('./routes/login');
 const signupRoute = require('./routes/signup');
+const crops = require('./routes/crops');
 
 // Use routes
 app.use('/fertilizers', fertilizersRoute);
 app.use('/login/', loginRoute);
 app.use('/signup/', signupRoute);
+app.use('/crops/',crops);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
