@@ -41,7 +41,7 @@ const CropsPage = () => {
 //     // Add more data as needed
 //   ];
   const filteredCrops = cropsData.filter(crop =>
-    // crop.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    crop.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (selectedType === 'All' || crop.Type === selectedType) &&
     (selectedSeason === 'All' || crop.Season === selectedSeason) &&
     (selectedSoil === 'All' || crop.Soil_Type === selectedSoil) &&
