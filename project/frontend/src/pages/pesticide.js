@@ -27,8 +27,9 @@ const PesticidePage = () => {
 //   ];
   const filteredPesticide = pesticideData.filter(pesticide =>
     pesticide.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedPests === 'All' || pesticide.Pests.includes(selectedPests)) 
+    (selectedPests === 'All' || pesticide.Pests.toLowerCase().includes(selectedPests.toLowerCase())) 
   );
+  // console.log(filteredPesticide)
 //   console.log(selectedType);
   const handleSearchChange = (e) => {
     e.preventDefault();

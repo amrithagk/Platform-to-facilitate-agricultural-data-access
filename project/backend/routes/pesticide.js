@@ -12,7 +12,7 @@ router.get("/all",async(req,res)=>{
         const {data,error} = await supabase
         .from('Pesticide')
         .select('*');
-        console.log("in all",data)
+        // console.log("in all",data)
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
@@ -29,7 +29,7 @@ router.get("/pests",async(req,res)=>{
         const {data,error} = await supabase
         .rpc('get_unique_pests')
         .select('*');
-        console.log("pests=",data);
+        // console.log("pests=",data);
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
