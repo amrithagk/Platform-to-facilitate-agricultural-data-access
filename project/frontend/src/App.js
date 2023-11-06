@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import LoginSignUp from './pages/LoginSignUp';
 import ProfileButton from './components/profileButton'; // Import the new component
 import Crops from "./pages/crops";
+import Pesticide from './pages/pesticide';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginSignUp />} />
           <Route path = "/crops" element = {<Crops/>}/>
+          <Route path = "/pesticide" element = {<Pesticide/>}/>
         </Routes>
 
         {/* Include the ProfileButton component */}

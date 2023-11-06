@@ -1,6 +1,6 @@
 // CropsPage.js
 import React, { useEffect, useState } from 'react';
-import CropsTable from '../components/cropsdata';
+import Table from '../components/cropsdata';
 import axios from 'axios';
 
 const CropsPage = () => {
@@ -126,7 +126,7 @@ const CropsPage = () => {
         ))}
 
        </select>
-      <CropsTable crops={filteredCrops} />
+      <Table crops={filteredCrops} />
     </div>
   );
 };

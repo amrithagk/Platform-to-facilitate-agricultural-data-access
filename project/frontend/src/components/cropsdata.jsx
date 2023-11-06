@@ -1,7 +1,7 @@
 // CropsTable.js
 import React from 'react';
 
-const CropsTable = ({ crops }) => {
+const Table = ({ crops }) => {
   const keysCrops = Object.keys(crops[0] || {}); // Handle the case when crops is an empty array
 
   return (
@@ -30,4 +30,4 @@ const CropsTable = ({ crops }) => {
   );
 };
 
-export default CropsTable;
+export default Table;
