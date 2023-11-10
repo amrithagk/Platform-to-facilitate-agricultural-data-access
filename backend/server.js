@@ -71,16 +71,19 @@ app.post('/fertilizers', async (req, res) => {
   }
 });
 
-app.get('/dashboard', async (req, res) => {
-  const farmerID = req.body.farmerid;
+app.post('/dashboard', async (req, res) => {
+  const farmerId = req.body.farmerId;
+  console.log("farmerid = ", farmerId)
+
   try {
     const { data, error } = await supabase
       .from('Produce')
       .select('*')
-      .filter('Farmer_id', 'eq', `${farmerID}`)
+      .filter('Farmer_id', 'eq', `${farmerId}`)
     if (error) {
       return res.status(500).json({ error: 'Error fetching from DB' })
     } else {
+      console.log("data", data)
       return res.send(data)
     }
   } catch (err) {

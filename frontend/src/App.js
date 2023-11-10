@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navigation from './navigation';
 import Fertilizers from './pages/fertilizers';
 import Crops from './pages/crops';
+import FarmerDashboard from './pages/dashboard';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/fertilizers" element={<Fertilizers />}></Route>
           <Route path="/crops" element={<Crops />}></Route>
+          <Route path="/dashboard" element={<FarmerDashboard />}></Route>
         </Routes>
     </div>
   );
