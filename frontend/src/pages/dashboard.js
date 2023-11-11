@@ -113,6 +113,7 @@ export default function FarmerDashboard() {
             { farmerId }
           );
           setProduceDetails(response.data);
+          setAddDetails(false);
           console.log("response", response.data)
         } catch (error) {
           console.error('Error searching:', error);
@@ -123,6 +124,7 @@ export default function FarmerDashboard() {
 
     const handleAddButton = () => {
         setAddDetails(true);
+        setProduceDetails({});
     };
 
 
