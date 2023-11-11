@@ -91,6 +91,23 @@ app.post('/dashboard', async (req, res) => {
   }
 })
 
+app.post('/producedetails', async (req, res) => {
+  const produceID = req.body.produceID;
+  console.log("produce id = ", produceID)
+  try {
+    const { error } = await supabase
+      .from('countries')
+      .insert({ id: 1, name: 'Denmark' })
+    if (error) {
+      return res.status(500).json({ error: 'Error fetching from DB' })
+    } else {
+      console.log("data", data)
+      return res.send(data)
+    }
+  } catch (err) {
+    return res.status(500).json({ error: "server error" })
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
