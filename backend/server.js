@@ -4,7 +4,7 @@ const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 const cors = require('cors');
 const app = express();
-const port = 3000; // Your desired port
+const port = 3000; // Server port
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,10 +16,9 @@ const supabase = createClient(
   process.env.API_KEY
 );
 
-//console.log(supabase, "supa client")
 
 app.post('/crops', async (req, res) => {
-  const name = req.body.name; // Assuming the name is sent in the request body
+  const name = req.body.name;
   console.log(name)
   try {
     //const user = supabase.auth.user();
@@ -44,7 +43,7 @@ app.post('/crops', async (req, res) => {
 });
 
 app.post('/fertilizers', async (req, res) => {
-  const name = req.body.name; // Assuming the name is sent in the request body
+  const name = req.body.name;
   console.log(name)
   try {
     //const user = supabase.auth.user();
@@ -92,24 +91,52 @@ app.post('/dashboard', async (req, res) => {
 })
 
 app.post('/producedetails', async (req, res) => {
-  const produceID = req.body.produceID;
-  console.log("produce id = ", produceID)
+  
+  let sc_name;
+
+  try {
+    const { data, error } = await supabase
+      .from('Crop')
+      .select('Scientific_Name')
+      .eq("Name", req.body.Crop_Name);
+
+    if (error) {
+      return res.status(500).json({ error: 'Error searching crop name.' });
+    }
+
+    if (data && data.length > 0) {
+      sc_name = data;
+    } else {
+      return res.status(404).json({ message: 'No matching records found.' });
+    }
+  } catch (err) {
+    return res.status(500).json({ error: 'Server error.' });
+  }
+
+  let details = req.body;
+  delete details.Crop_Name;
+  details.Scientific_Name = sc_name[0].Scientific_Name;
+  const dataToInsert = details;
+  console.log("new produce details", dataToInsert);
+
   try {
     const { error } = await supabase
       .from('Produce')
-      .insert({ id: 1, name: 'Denmark' })
-    if (error) {
-      return res.status(500).json({ error: 'Error fetching from DB' })
-    } else {
-      console.log("data", data)
-      return res.send(data)
+      .insert(dataToInsert)
+      
+      if (error) {
+        console.error('Error inserting data:', error.message);
+      } else {
+        console.log('Data inserted successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error inserting data:', error.message);
     }
-  } catch (err) {
-    return res.status(500).json({ error: "server error" })
-  }
+
 })
 
 app.get('/incentives', async (req, res) => {
+
   try {
     const {data, error} = await supabase
       .from("Incentive_Schemes")
@@ -123,6 +150,7 @@ app.get('/incentives', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ error: "server error" })
   }
+
 })
 
 app.listen(port, () => {
