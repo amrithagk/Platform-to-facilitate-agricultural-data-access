@@ -5,6 +5,7 @@ import Navigation from './navigation';
 import Fertilizers from './pages/fertilizers';
 import Crops from './pages/crops';
 import FarmerDashboard from './pages/dashboard';
+import Incentives from './pages/incentives';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/fertilizers" element={<Fertilizers />}></Route>
           <Route path="/crops" element={<Crops />}></Route>
           <Route path="/dashboard" element={<FarmerDashboard />}></Route>
+          <Route path="/incentives" element={<Incentives />}></Route>
         </Routes>
     </div>
   );

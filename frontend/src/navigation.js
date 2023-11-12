@@ -17,6 +17,7 @@ export default function Navigation() {
           <li><Link class="nav-link scrollto " to="/crops">Crop Details</Link></li>
           <li><Link class="nav-link scrollto" to="/fertilizers">Fertilizers</Link></li>
           <li><Link class="nav-link scrollto" to="/pesticides">Pesticides</Link></li>
+          <li><Link class="nav-link scrollto" to="/incentives">Incentive Schemes</Link></li>
           <li class="dropdown"><Link to="/"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></Link>
             <ul>
               <li><Link to="/">Drop Down 1</Link></li>

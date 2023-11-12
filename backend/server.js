@@ -96,8 +96,24 @@ app.post('/producedetails', async (req, res) => {
   console.log("produce id = ", produceID)
   try {
     const { error } = await supabase
-      .from('countries')
+      .from('Produce')
       .insert({ id: 1, name: 'Denmark' })
+    if (error) {
+      return res.status(500).json({ error: 'Error fetching from DB' })
+    } else {
+      console.log("data", data)
+      return res.send(data)
+    }
+  } catch (err) {
+    return res.status(500).json({ error: "server error" })
+  }
+})
+
+app.get('/incentives', async (req, res) => {
+  try {
+    const {data, error} = await supabase
+      .from("Incentive_Schemes")
+      .select("*")
     if (error) {
       return res.status(500).json({ error: 'Error fetching from DB' })
     } else {
