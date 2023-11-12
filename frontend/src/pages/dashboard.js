@@ -150,7 +150,6 @@ export default function FarmerDashboard() {
                 <ul>
                   <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
                   <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
-                  <li><button onClick={fetchDetails} type="submit" class="btn">Fetch Details</button></li>
                 </ul>
               </div>
             </div>
