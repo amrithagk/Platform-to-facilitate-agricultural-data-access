@@ -50,6 +50,7 @@ const LoginSignUp = () => {
         const token = response.data.token;
         console.log('Login successful! Token:', token);
         localStorage.setItem('Email',userData.Email);
+        localStorage.setItem('role',role);
           navigate('/');
         }
         catch(err){

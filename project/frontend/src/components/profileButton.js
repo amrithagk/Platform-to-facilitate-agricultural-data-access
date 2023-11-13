@@ -14,6 +14,7 @@ const ProfileButton = () => {
 
   const logout = () => {
     localStorage.removeItem('Email');
+    localStorage.removeItem('role');
     console.log(localStorage.getItem('Email'))
     navigate("/");
   }

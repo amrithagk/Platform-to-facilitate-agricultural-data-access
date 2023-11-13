@@ -27,7 +27,7 @@ router.get("/types",async(req,res)=>{
         const {data,error} = await supabase
         .from('distinct_types')
         .select();
-        console.log(data);
+        //(data);
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
@@ -44,14 +44,14 @@ router.get("/seasons",async(req,res)=>{
         const {data,error} = await supabase
         .from('distinct_season')
         .select();
-        console.log(data);
+        //(data);
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
         res.status(200).send({data})
     }
     catch(err){
-        console.log(err);
+        //(err);
         res.status(500).send({error:"Code Error"});
     }
 
@@ -61,14 +61,14 @@ router.get("/soil_type",async(req,res)=>{
         const {data,error} = await supabase
         .from('distinct_soil_type')
         .select();
-        console.log(data);
+        //(data);
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
         res.status(200).send({data})
     }
     catch(err){
-        console.log(err);
+        //(err);
         res.status(500).send({error:"Code Error"});
     }
 
@@ -78,14 +78,14 @@ router.get("/water_req",async(req,res)=>{
         const {data,error} = await supabase
         .from('distinct_water_req')
         .select();
-        console.log(data);
+        //(data);
         if(error){
             res.status(500).send({error:"Not found in Database"});
         }
         res.status(200).send({data})
     }
     catch(err){
-        console.log(err);
+        //(err)
         res.status(500).send({error:"Code Error"});
     }
 
