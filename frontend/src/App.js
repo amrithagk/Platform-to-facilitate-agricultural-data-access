@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navigation from './navigation';
 import Fertilizers from './pages/fertilizers';
 import Crops from './pages/crops';
-import FarmerDashboard from './pages/dashboard';
+import FarmerDashboard from './pages/farmerdashboard';
 import Incentives from './pages/incentives';
 
 function App() {

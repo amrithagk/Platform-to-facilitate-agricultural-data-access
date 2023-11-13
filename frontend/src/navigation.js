@@ -1,9 +1,34 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
 
 export default function Navigation() {
-  const [authState, setAuthState] = useState(0);
-    return (
+  const [authState, setAuthState] = useState(0); 
+  /*
+    0 - not logged in
+    1 - farmer
+    2 - dealer
+  */
+
+  useEffect(() => {
+    const getAuthState = () => {
+      try {
+        const role = localStorage.getItem("role");
+        console.log("role", role);
+        if (role === 'Farmer'){
+          return 1;
+        } else if (role === 'Dealer') {
+          return 2;
+        }
+      } catch {
+        return 0;
+      }
+    };
+    
+    console.log("authstate", getAuthState());
+    setAuthState(getAuthState());
+  });
+
+  return (
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
@@ -28,13 +53,21 @@ export default function Navigation() {
             )
             :
             (
-              //show dashboard
-              <>
-            <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
-            <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
-              </>
-              //set authstate to 0
+              authState === 1 ? (
+                //show farmer dashboard
+                <>
+                <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
+                <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
+                </>
+              ) : (
+                //show  dealer dashboard
+                <>
+                <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
+                <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
+                </>
+              )
               
+              //set authstate to 0 after logout?
             )
           }
         </ul>

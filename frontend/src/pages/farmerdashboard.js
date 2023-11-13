@@ -117,49 +117,73 @@ const ProduceForm = () => {
 
 export default function FarmerDashboard() {
     const farmerId = 1; //take farmerID from login details
+    const userId = farmerId;
     const [produceDetails, setProduceDetails] = useState({});
     const [addDetails, setAddDetails] = useState(false);
+    const [notificationDetails, setNotificationDetails] = useState({});
 
     const fetchDetails = async () => {
-        try {
-          const response = await axios.post(
-            'http://localhost:3000/dashboard',
-            { farmerId }
-          );
-          setProduceDetails(response.data);
-          setAddDetails(false);
-          console.log("response", response.data)
-        } catch (error) {
-          console.error('Error searching:', error);
-        }
-      };
+      try {
+        const response = await axios.post(
+          'http://localhost:3000/dashboard',
+          { farmerId }
+        );
+        setProduceDetails(response.data);
+        setAddDetails(false);
+        console.log("response", response.data)
+      } catch (error) {
+        console.error('Error searching:', error);
+      }
+    };
 
     console.log("produce Details", produceDetails)
 
     const handleAddButton = () => {
-        setAddDetails(true);
-        setProduceDetails({});
+      setAddDetails(true);
+      setProduceDetails({});
+    };
+
+    const getNotifications = async () => {
+      
+      const role = 'Farmer';
+
+      try {
+        const response = await axios.post(
+          'http://localhost:3000/notifications',
+          { role, userId }
+        );
+        setAddDetails(false);
+        setNotificationDetails(response.data);
+        //console.log("response", response.data)
+      } catch (error) {
+        console.error('Error searching:', error);
+      }
     };
 
 
     return (
-        <div className="main-div">
-            <h1 className="text-center">Farmer Dashboard</h1>
-            <div className="options-container">
-              <div className="dashboard-options">
-                <ul>
-                  <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
-                  <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
-                </ul>
-              </div>
+      <div className="main-div">
+          <h1 className="text-center">Farmer Dashboard</h1>
+          <div className="options-container">
+            <div className="dashboard-options">
+              <ul>
+                <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
+                <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
+                <li><button onClick={getNotifications} type="submit" class="btn">Notifications</button></li>
+              </ul>
             </div>
-            { produceDetails.length > 0 ? 
-                <ResultTable searchResult={produceDetails}/> 
-                : ''
-            }
-            {
-                addDetails && <ProduceForm/>
-            }
-        </div>
+          </div>
+          { produceDetails.length > 0 ? 
+              <ResultTable searchResult={produceDetails}/> 
+              : ''
+          }
+          {
+              addDetails && <ProduceForm/>
+          }
+          { notificationDetails.length > 0 ? 
+              <ResultTable searchResult={notificationDetails}/> 
+              : ''
+          }
+      </div>
     )
 }

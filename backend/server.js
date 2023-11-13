@@ -91,7 +91,7 @@ app.post('/dashboard', async (req, res) => {
 })
 
 app.post('/producedetails', async (req, res) => {
-  
+
   let sc_name;
 
   try {
@@ -123,22 +123,22 @@ app.post('/producedetails', async (req, res) => {
     const { error } = await supabase
       .from('Produce')
       .insert(dataToInsert)
-      
-      if (error) {
-        console.error('Error inserting data:', error.message);
-      } else {
-        console.log('Data inserted successfully:', data);
-      }
-    } catch (error) {
+
+    if (error) {
       console.error('Error inserting data:', error.message);
+    } else {
+      console.log('Data inserted successfully:', data);
     }
+  } catch (error) {
+    console.error('Error inserting data:', error.message);
+  }
 
 })
 
 app.get('/incentives', async (req, res) => {
 
   try {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("Incentive_Schemes")
       .select("*")
     if (error) {
@@ -149,6 +149,48 @@ app.get('/incentives', async (req, res) => {
     }
   } catch (err) {
     return res.status(500).json({ error: "server error" })
+  }
+
+})
+
+app.post('/notifications', async (req, res) => {
+
+  const role = req.body.role;
+  const id = req.body.userId;
+
+  let table_name, col_name;
+  switch (role) {
+    case 'Farmer':
+      table_name = 'notification_farmer';
+      col_name = 'Farmer_id';
+      break;
+    case 'Dealer':
+      table_name = 'notification_dealer';
+      col_name = 'dealer_id';
+      break;
+    default:
+      table_name = '';
+      col_name = '';
+  };
+
+  try {
+
+    const { notificationData, error } = await supabase
+      .from(table_name)
+      .select('*')
+      .filter('Purchase_record.Dealer_ID', 'eq', 'notification_farmer.dealer_id')
+      .filter('Purchase_record.Produce_ID', 'eq', 'notification_farmer.produce_id')
+      .join('Purchase_record', { type: 'inner' })
+      .eq(col_name, id);
+
+    if (error) {
+      res.status(500).json({ "Error fetching data": error })
+    }
+    else {
+      console.log("notification data", notificationData)
+  }
+ } catch {
+    res.status(500).json({ error: "Server error" })
   }
 
 })
