@@ -18,14 +18,16 @@ export default function Navigation() {
           return 1;
         } else if (role === 'Dealer') {
           return 2;
+        } else {
+          return 0;
         }
       } catch {
         return 0;
       }
     };
     
-    console.log("authstate", getAuthState());
     setAuthState(getAuthState());
+    console.log("authstate", authState);
   });
 
   return (
@@ -42,8 +44,9 @@ export default function Navigation() {
           <li><Link class="nav-link scrollto " to="/crops">Crop Details</Link></li>
           <li><Link class="nav-link scrollto" to="/fertilizers">Fertilizers</Link></li>
           <li><Link class="nav-link scrollto" to="/pesticides">Pesticides</Link></li>
+          <li><Link class="nav-link scrollto" to="/warehouse">Warehouse</Link></li>
           <li><Link class="nav-link scrollto" to="/incentives">Incentive Schemes</Link></li>
-          <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
+          <li><Link class="nav-link scrollto" to="/farmerdashboard">Dashboard</Link></li>
           { authState === 0 ? 
             (
               <>
@@ -56,13 +59,13 @@ export default function Navigation() {
               authState === 1 ? (
                 //show farmer dashboard
                 <>
-                <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
+                <li><Link class="nav-link scrollto" to="/farmerdashboard">Dashboard</Link></li>
                 <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
                 </>
               ) : (
                 //show  dealer dashboard
                 <>
-                <li><Link class="nav-link scrollto" to="/dashboard">Dashboard</Link></li>
+                <li><Link class="nav-link scrollto" to="/dealerdashboard">Dashboard</Link></li>
                 <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
                 </>
               )

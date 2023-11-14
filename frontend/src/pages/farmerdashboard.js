@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ResultTable from "../components/resulttable";
 import axios from 'axios';
 
 
 const ProduceForm = () => {
+
   const [formData, setFormData] = useState({
     Season: '',
     Location: '',
@@ -24,7 +25,7 @@ const ProduceForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/producedetails', 
+        'http://localhost:3000/farmerdashboard/producedetails',
         formData
       );
       console.log('Form submitted successfully!', response.data);
@@ -116,74 +117,105 @@ const ProduceForm = () => {
 };
 
 export default function FarmerDashboard() {
-    const farmerId = 1; //take farmerID from login details
-    const userId = farmerId;
-    const [produceDetails, setProduceDetails] = useState({});
-    const [addDetails, setAddDetails] = useState(false);
-    const [notificationDetails, setNotificationDetails] = useState({});
+  const farmerId = 1; //take farmerID from login details
+  const userId = farmerId;
+  const [produceDetails, setProduceDetails] = useState({});
+  const [addDetails, setAddDetails] = useState(false);
+  const [notificationDetails, setNotificationDetails] = useState({});
 
-    const fetchDetails = async () => {
-      try {
-        const response = await axios.post(
-          'http://localhost:3000/dashboard',
-          { farmerId }
-        );
-        setProduceDetails(response.data);
-        setAddDetails(false);
-        console.log("response", response.data)
-      } catch (error) {
-        console.error('Error searching:', error);
-      }
-    };
+  const [currentId, setCurrentId] = useState(null);
+  useEffect(() => {
+    const role = 'Farmer';//localStorage.getItem("role");
+    //let email; //use this line after login integration
+    
+    const getFarmerId = async (emailId) => {
+      const fId = await axios.post(
+        'http://localhost:3000/farmerdashboard/getuserid',
+        { emailId }
+      )
+        .then((res) => {
+          console.log("id response", res.data);
+          setCurrentId(res.data[0].Farmer_id)
+        });
 
-    console.log("produce Details", produceDetails)
+    }
 
-    const handleAddButton = () => {
-      setAddDetails(true);
-      setProduceDetails({});
-    };
-
-    const getNotifications = async () => {
-      
-      const role = 'Farmer';
-
-      try {
-        const response = await axios.post(
-          'http://localhost:3000/notifications',
-          { role, userId }
-        );
-        setAddDetails(false);
-        setNotificationDetails(response.data);
-        //console.log("response", response.data)
-      } catch (error) {
-        console.error('Error searching:', error);
-      }
-    };
+    if (role === 'Farmer') {
+      //email = localStorage.getItem("Email");
+      let email = 'abc@email.com';
+      getFarmerId(email);
+      console.log("curID", currentId);
+      localStorage.setItem("currentId", currentId);
+    }
+  }, []);
 
 
-    return (
-      <div className="main-div">
-          <h1 className="text-center">Farmer Dashboard</h1>
-          <div className="options-container">
-            <div className="dashboard-options">
-              <ul>
-                <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
-                <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
-                <li><button onClick={getNotifications} type="submit" class="btn">Notifications</button></li>
-              </ul>
-            </div>
-          </div>
-          { produceDetails.length > 0 ? 
-              <ResultTable searchResult={produceDetails}/> 
-              : ''
-          }
-          {
-              addDetails && <ProduceForm/>
-          }
-          { notificationDetails.length > 0 ? 
-              <ResultTable searchResult={notificationDetails}/> 
-              : ''
-          }
+  const fetchDetails = async () => {
+    try {
+      setAddDetails(false);
+      setNotificationDetails({});
+      const response = await axios.post(
+        'http://localhost:3000/farmerdashboard',
+        { farmerId }
+      );
+      setProduceDetails(response.data);
+      console.log("response", response.data)
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
+  console.log("produce Details", produceDetails)
+
+  const handleAddButton = () => {
+    setProduceDetails({});
+    setNotificationDetails({});
+    setAddDetails(true);
+  };
+
+  const getNotifications = async () => {
+
+    setAddDetails(false);
+    setProduceDetails({});
+    const role = 'Farmer';
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/farmerdashboard/notifications',
+        { role, currentId }
+      );
+      setNotificationDetails(response.data);
+      //console.log("response", response.data)
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
+
+  return (
+    <div className="main-div">
+      <h1 className="text-center">Farmer Dashboard</h1>
+      <div className="options-container">
+        <div className="dashboard-options">
+          <ul>
+            <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
+            <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
+            <li><button onClick={getNotifications} type="submit" class="btn">Notifications</button></li>
+          </ul>
+        </div>
       </div>
-    )
+      {produceDetails.length > 0 ?
+        <ResultTable searchResult={produceDetails} />
+        : ''
+      }
+      {
+        addDetails && <ProduceForm />
+      }
+      {
+        notificationDetails.length > 0 ?
+        <ResultTable searchResult={notificationDetails} />
+        : 'No notifications'
+      }
+    </div>
+  )
 }
