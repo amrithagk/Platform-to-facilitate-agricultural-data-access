@@ -214,7 +214,7 @@ export default function FarmerDashboard() {
       {
         notificationDetails.length > 0 ?
         <ResultTable searchResult={notificationDetails} />
-        : 'No notifications'
+        : ''
       }
     </div>
   )
