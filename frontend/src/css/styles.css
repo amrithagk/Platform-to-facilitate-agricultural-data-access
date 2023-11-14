@@ -34,6 +34,12 @@ td {
   padding: 8px;
 }
 
+td.accept-reject {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Add spacing between cells */
 table {
   border-spacing: 3;
@@ -116,6 +122,35 @@ form>table>tbody>tr>td {
   padding: 10px;
   border: none;
 }
+
+/* notifications */
+.accept-btn {
+  background-color: rgb(113, 188, 113);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.accept-btn:hover {
+  background-color: rgb(113, 188, 113);
+  transform: scale(1.2);
+  color: black;
+}
+
+.reject-btn {
+  background-color: rgb(245, 123, 116);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.reject-btn:hover {
+  background-color: rgb(245, 123, 116);
+  transform: scale(1.2);
+  color: black;
+}
+
+
+
+/* Filters */
 
 div.filter-container {
   display: flex;

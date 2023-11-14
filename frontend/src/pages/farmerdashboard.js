@@ -191,6 +191,13 @@ export default function FarmerDashboard() {
     }
   };
 
+  const handleAccept = () => {
+    console.log("accepted");
+  }
+
+  const handleReject = () => {
+    console.log("Rejected");
+  }
 
   return (
     <div className="main-div">
@@ -213,7 +220,11 @@ export default function FarmerDashboard() {
       }
       {
         notificationDetails.length > 0 ?
-        <ResultTable searchResult={notificationDetails} />
+        <ResultTable 
+          searchResult={notificationDetails} 
+          isNotification={true} 
+          handleAccept={handleAccept} 
+          handleReject={handleReject}/>
         : ''
       }
     </div>
