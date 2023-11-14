@@ -26,7 +26,7 @@ const ProfileButton = () => {
       </button>
       {showDropdown && (
         <div className="profile-dropdown">
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to={'/'+localStorage.getItem('role').toLocaleLowerCase()+'_dashboard'}>Dashboard</Link>
           <Link to="/logout" onClick={logout}>Logout</Link>
           {/* Add more links as needed */}
         </div>

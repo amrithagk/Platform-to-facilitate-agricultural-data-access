@@ -19,6 +19,7 @@ const crops = require('./routes/crops');
 const pesticide = require('./routes/pesticide');
 const avail_produce = require('./routes/get_avail_produce');
 const get_orders = require('./routes/get_orders');
+const purchase = require('./routes/purchase_record');
 
 // Use routes
 console.log("hiiiiii")
@@ -29,6 +30,7 @@ app.use('/crops/',crops);
 app.use('/pesticide/',pesticide);
 app.use('/get_avail_produce/',avail_produce);
 app.use('/get_orders/',get_orders);
+app.use('/purchase_record/',purchase);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

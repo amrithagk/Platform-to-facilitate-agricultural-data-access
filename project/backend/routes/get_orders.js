@@ -7,23 +7,16 @@ const supabase = createClient(
   process.env.API_KEY
 );
 router.get("/:key", async (req, res) => {
-    console.log('erronwef');
+    // console.log('erronwef');
     const param = req.params.key;
     try {
         const { data, error } = await supabase
-            .from('Purchase_record')
-            .select(`
-                Produce_ID,
-                Quantity,
-                Unit_price,
-                Date,
-                Dealer(dealer_id,email)
-                
-            `)
-            .eq('Dealer.email', param);
+        .rpc('get_orders', { email_param: param })
+        .select('*');
+
 
         console.log(data);
-
+        
         if (error) {
             console.log(error, " in q");
             res.status(500).send({ error });

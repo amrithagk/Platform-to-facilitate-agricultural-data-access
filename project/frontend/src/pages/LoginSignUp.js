@@ -10,12 +10,13 @@ const LoginSignUp = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
 
-  // Additional signup fields
+  // Additional signup fields 
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
   const [idProof, setIdProof] = useState('');
   const [region, setRegion] = useState('');
   const [contact, setContact] = useState('');
+  const [contacts, setContacts] = useState([]);
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -27,6 +28,19 @@ const LoginSignUp = () => {
     setRole((prev) => (prev === 'Dealer' ? 'Farmer' : 'Dealer'));
   };
 
+  const addContact = () => {
+    setContacts((prevContacts) => [...prevContacts, contact]);
+    setContact(''); // Clear the input field after adding a contact
+  };
+
+  const removeContact = (index) => {
+    setContacts((prevContacts) => {
+      const updatedContacts = [...prevContacts];
+      updatedContacts.splice(index, 1);
+      return updatedContacts;
+    });
+  };
+
   const handleAuth = async (e) => {
     try {
         e.preventDefault();
@@ -35,11 +49,13 @@ const LoginSignUp = () => {
       if (!isLogin) {
         // Additional fields for signup
         userData.Name = name;
-        userData.Date_of_Birth = dob;
-        userData.Id_Proof = idProof;
+        if(role === 'Farmer')
+        {userData.Date_of_Birth = dob;
+        userData.Id_Proof = idProof;}
+        else
         if (role === 'Dealer') {
           userData.region = region;
-          userData.contact = contact;
+          userData.contact = contacts;
         }
       }
 
@@ -51,17 +67,19 @@ const LoginSignUp = () => {
         console.log('Login successful! Token:', token);
         localStorage.setItem('Email',userData.Email);
         localStorage.setItem('role',role);
-          navigate('/');
+          navigate(`/${role.toLocaleLowerCase()}_dashboard`);
         }
         catch(err){
           console.log('Login Failed Error');
         }
         // Save the token in localStorage or state for future requests
       } else {
+        console.log(contacts)
         // Signup
         const response = await axios.post(`http://localhost:5000/signup/${role}`, userData);
         if(response.status === 200)
-          console.log('Signup successful!');
+          {console.log('Signup successful!');
+          navigate('/login')}
         else
         if(response.status===401)
           console.log('Account already present');
@@ -165,18 +183,41 @@ const LoginSignUp = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="Contact" className="form-label">
-                        Contact Details:
-                      </label>
-                      <input
-                        type="tel"
-                        className="form-control"
-                        id="Contact1"
-                        value={contact}
-                        required
-                        onChange={(e) => setContact(e.target.value)}
-                      />
-                    </div>
+        <label htmlFor="Contact" className="form-label">
+          Contact Details:
+        </label>
+        {contacts.map((contact, index) => (
+          <div key={index} className="input-group mb-2">
+            <input
+              type="tel"
+              className="form-control"
+              value={contact}
+              readOnly
+            />
+          </div>
+        ))}
+        <div className="input-group mb-2">
+          <input
+            type="tel"
+            className="form-control"
+            id="Contact1"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              setContacts((prevContacts) => [...prevContacts, contact]);
+              setContact('');
+            }}
+            >
+            Add Contact
+          </button>
+        </div>
+      </div>
+
                   </>
                 )}
                 <div className="mb-3">

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/pageStyles.css'; // Import your CSS file
-
+import { useNavigate } from 'react-router-dom';
 const InitiateDealPage = () => {
   const [farmerProduces, setFarmerProduces] = useState([]);
   const [selectedProduce, setSelectedProduce] = useState(null);
@@ -13,20 +13,24 @@ const InitiateDealPage = () => {
     axios.get('http://localhost:5000/get_avail_produce/')
       .then(res => setFarmerProduces(res.data.data || []));
   }, []);
-
+  const navigate = useNavigate();
   const initiateDeal = async (e) => {
-    e.preventDefault();
 
+    e.preventDefault();
+    let curr_date = new Date()
+    console.log(localStorage.getItem('Email'));
+    console.log(selectedProduce)
     if (selectedProduce && offerAmount) {
       try {
-        const response = await axios.post('http:localhost', {
-          produceID: selectedProduce.Produce_ID,
+        const response = await axios.post('http://localhost:5000/purchase_record/', {
+          produceID: selectedProduce.Produce_id,
           quantity: selectedProduce.Quantity,
           offerAmount: offerAmount,
-          email: localStorage.getItem('Email')
+          email: localStorage.getItem('Email'),
+          date : curr_date
         });
-
-        console.log(response.data);
+        navigate('/dealer_dashboard');
+        console.log(response.data); 
       } catch (error) {
         console.error('Error initiating deal:', error);
       }

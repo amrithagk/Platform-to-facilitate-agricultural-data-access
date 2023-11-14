@@ -9,20 +9,20 @@ const supabase = createClient(
 
 router.post('/:role', async (req, res) => {
   const role = req.params.role;
-  const { email, password } = req.body;
+  const { Email, Password } = req.body;
   console.log(req.body)
 
   try {
     const { data, error } = await supabase
       .from(role)
-      .select('Email', 'Password')
-      .eq('Email', email);
-    console.log(error);
+      .select('email , password')
+      .eq('email', Email);
+    console.log(data);
     if (error) {
       return res.status(500).json({ error: 'Error searching the database.' });
     }
 
-    if (password == data.password) {
+    if (Password== data[0].password) {
       return res.status(200).send(data);
     } else {
       return res.status(401).send('Password is not matching!!!:(');
