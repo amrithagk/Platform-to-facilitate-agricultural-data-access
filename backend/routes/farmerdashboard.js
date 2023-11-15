@@ -117,4 +117,36 @@ router.post('/notifications', async (req, res) => {
 
 })
 
+router.post('/action', async (req, res) => {
+
+  const decision = req.body.decision;
+  const purchaseId = req.body.purchaseId;
+  console.log("decision", decision, purchaseId);
+
+  try {
+
+    const { data, error } = await supabase
+      .from('Purchase_record')
+      .update({deal_status: decision})
+      .eq('purchase_id', purchaseId);
+
+    if (error) {
+      res.status(500).json({ "Error fetching data": error })
+    }
+    else {
+      console.log("notification data", data)
+      return res.send(data);
+  }
+ } catch {
+    res.status(500).json({ error: "Server error" })
+  }
+
+  if (decision === 'Accepted') {
+    const produceId = req.body.produceId;
+    
+  }
+
+})
+
+
 module.exports = router;

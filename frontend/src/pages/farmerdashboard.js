@@ -191,13 +191,20 @@ export default function FarmerDashboard() {
     }
   };
 
-  const handleAccept = () => {
-    console.log("accepted");
+  const handleDecision = async (decision, purchaseId) => {
+    console.log(decision, purchaseId);
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/farmerdashboard/action',
+        { decision, purchaseId }
+      );
+      setNotificationDetails(response.data);
+      //console.log("response", response.data)
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
   }
 
-  const handleReject = () => {
-    console.log("Rejected");
-  }
 
   return (
     <div className="main-div">
@@ -223,8 +230,7 @@ export default function FarmerDashboard() {
         <ResultTable 
           searchResult={notificationDetails} 
           isNotification={true} 
-          handleAccept={handleAccept} 
-          handleReject={handleReject}/>
+          handleDecision={handleDecision}/>
         : ''
       }
     </div>

@@ -15,11 +15,11 @@ function Row(props) {
                 <td className="accept-reject">
                     <div>
                         <button onClick={()=>{
-                            props.handleAccept(props.arr.Purchase_id);
+                            props.handleDecision("Accepted", props.arr[0]); //passing the decision and corresponding purchaseID
                             setButtonVisible(false);
                             }} className="btn accept-btn">Accept</button>
                         <button onClick={()=>{
-                            props.handleReject(props.arr.Purchase_id)
+                            props.handleDecision("Rejected", props.arr[0])
                             setButtonVisible(false);
                             }} className="btn reject-btn">Reject</button>
                     </div>
@@ -60,8 +60,7 @@ export default function ResultTable(props) {
                                     idx={index} 
                                     arr={vals} 
                                     isNotification={props.isNotification}
-                                    handleAccept={props.handleAccept} 
-                                    handleReject={props.handleReject}
+                                    handleDecision={props.handleDecision}
                                 />
                             ))
                         }
@@ -79,6 +78,5 @@ export default function ResultTable(props) {
 
 ResultTable.defaultProps = {
     isNotification: false,
-    handleAccept: null,
-    handleReject: null
+    handleDecision: null
 }
