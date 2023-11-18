@@ -1,40 +1,194 @@
-/* styles.css */
+  /* page-header */
+  .page-header {
+    margin: 30px;
+    font-size: 40px;
+  }
 
+/* Define light green color for header cells */
+.table-container {
+  margin: 0 auto;
+  /* Center the table within the container */
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 3px;
+  margin: 20px;
+  width: 70%;
+  margin-top: 40px;
+}
+
+th {
+  background-color: rgb(139, 213, 139);
+  padding: 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* Define white color for body cells */
+td {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+td.accept-reject {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Add spacing between cells */
+table {
+  border-spacing: 3;
+}
+
+
+/* farmer dashboard */
+.options-container {
+  background-color: rgb(139, 213, 139);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-options {
+  width: fit-content;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+li {
+  margin-right: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: white 2px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+}
+
+.btn:hover {
+  color: white;
+  background-color: rgb(139, 213, 139);
+  border: white 2px solid;
+}
+
+
+/* farmer dashboard form */
+form {
+  margin: auto;
+}
+
+label {
+  width: 100%;
+  text-align: right;
+}
+
+form>table>tbody>tr>td>input {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: rgb(115, 115, 115) solid 0.5px;
+  border-radius: 3px;
+}
+
+.form-button {
+  padding: 10px;
+  background-color: rgb(85, 160, 85);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 50px;
+}
+
+.form-button:hover {
+  background-color: rgb(113, 188, 113);
+}
+
+form>table>tbody>tr>td {
+  padding: 10px;
+  border: none;
+}
+
+/* notifications */
+.accept-btn {
+  background-color: rgb(113, 188, 113);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.accept-btn:hover {
+  background-color: rgb(113, 188, 113);
+  transform: scale(1.2);
+  color: black;
+}
+
+.reject-btn {
+  background-color: rgb(245, 123, 116);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.reject-btn:hover {
+  background-color: rgb(245, 123, 116);
+  transform: scale(1.2);
+  color: black;
+}
+
+
+
+/* Filters */
+
+div.filter-container {
+  display: flex;
+  justify-content:center;
+}
+
+.filter-label {
+  padding: 20px;
+  width: fit-content;
+  text-align: left;
+  font-size: 18px;
+}
+
+/* search input bar */
+input.search {
+  width: 600px;
+  height: 50px;
+  margin-top: 8px;
+  padding: 20px;
+  border: 3px solid rgb(113, 188, 113);
+  border-radius: 25px;
+}
+
+/* select */
+select.drop-down {
+  width: 300px;
+  height: 50px;
+  border: 3px solid rgb(113, 188, 113);
+  border-radius: 25px;
+  margin-top: 8px;
+  padding-left: 20px;
+  font-size: 18px;
+}
+/* Add this style to position the profile button */
 .profile-button-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  
-  .profile-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-  
-  .profile-dropdown {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-  
-  .profile-dropdown a {
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    color: #333;
-  }
-  
-  .profile-button-container:hover .profile-dropdown {
-    display: block;
-  }
-  
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999; /* Ensure it appears on top of other elements */
+}
+/* Add these styles to your CSS file */

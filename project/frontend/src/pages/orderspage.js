@@ -1,4 +1,3 @@
-// OrdersPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/pageStyles.css'; // Import your CSS file
@@ -13,7 +12,7 @@ const OrdersPage = () => {
         const response = await axios.get(`http://localhost:5000/get_orders/${email}`);
         setOrders(response.data.data);
       } catch (error) {
-        console.error('Error fetching orders:', error);
+        console.error('Error fetching orders:', error); 
       }
     };
 
@@ -29,11 +28,25 @@ const OrdersPage = () => {
       <thead>
         <tr>
           {columns.map((column, index) => (
-            <th key={index}>{column}</th>
+            <th key={index}>{column.toLocaleUpperCase()}</th>
           ))}
         </tr>
       </thead>
     );
+  };
+
+  const getRowColorClass = (dealStatus) => {
+    console.log("deal=",dealStatus)
+    switch (dealStatus) {
+      case 'Success':
+        return 'success-row';
+      case 'Pending':
+        return 'pending-row';
+      case 'Failed':
+        return 'failed-row';
+      default:
+        return '';
+    }
   };
 
   const Table = () => (
@@ -41,7 +54,7 @@ const OrdersPage = () => {
       {renderTableHeaders()}
       <tbody>
         {orders.map((order, index) => (
-          <tr key={index}>
+          <tr key={index} className={getRowColorClass(order.deal_status)}>
             {Object.values(order).map((value, innerIndex) => (
               <td key={innerIndex}>{value}</td>
             ))}

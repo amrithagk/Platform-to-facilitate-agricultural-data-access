@@ -7,7 +7,7 @@ import ProfileButton from './components/profileButton'; // Import the new compon
 import Crops from "./pages/crops";
 import Pesticide from './pages/pesticide';
 import DealerDashboard from './pages/DealerDashboard';
-import InitiateDealPage from './pages/Initiate_page';
+import InitiateDealPage from './pages/initiate_page';
 import OrdersPage from './pages/orderspage';
 
 function App() {
