@@ -9,12 +9,12 @@ import StylishBox from '../components/boxstyle';
 
 const DealerDashboard = () => {
   const [notifications, setNotifications] = useState([]);
-  const [totalOrders,settotalorder] = useState(0.00);
-  const [totalPurchase,settotalpurchase] = useState(0);
+  const [totalorder,settotalorder] = useState(0.00);
+  const [totalpurchase,settotalpurchase] = useState(0);
   const fetchNotifications = async () => {
     try {
       const response = await axios.get('http://localhost:5000/get_notification/all');
-      setNotifications(response.data);
+      setNotifications(response.data.data);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -30,16 +30,17 @@ const DealerDashboard = () => {
         const resp = await axios.get('http://localhost:5000/getordpur/');
         console.log(resp.data);
         if(resp.data.data)
-       { settotalorder(resp.data.data[0].totord);
+       { 
+        settotalorder(resp.data.data[0].totord);
         settotalpurchase(resp.data.data[0].totpur);
-        console.log(totalOrders,totalPurchase)}
+        console.log(totalorder,totalpurchase)}
       }
       catch(err){
         console.log("error in retreiving data");
       }
     }
     getpurchaseorder();
-  },[])
+  })
   const handleNotificationClose = async(id) =>{
     try{
     await axios.put('http://localhost:5000/get_notification/modify', { id });
@@ -143,24 +144,22 @@ const DealerDashboard = () => {
          </Link>
        </div>
        <div className="dashboard-section">
-      <StylishBox totalAmount={totalPurchase} totalOrders={totalOrders}/>
+      <StylishBox totalAmount={totalpurchase} totalOrder={totalorder}/>
     </div>
      </main>
           {/* Render notifications from the backend */}
-       <div className="notification-section">
-        <h2>Notifications</h2>
-        <ul>
-        {notifications.map((index , notification) => (
-  <Notification
-    key={notification.produce_id}
-    message={`Hey, just to give a heads up, Farmer ${notification.farmer_name} has produced a crop ${notification.crop_name} of about ${notification.quantity} quintals with the Produce ID ${notification.produce_id}.`}
-    type = {index}
-    onClose={() => handleNotificationClose(notification.id)}
+          <div className="notification-section">
+  <h2>Notifications</h2>
+  <ul>
+    {notifications.map((notification) => (
+      <Notification
+        key={notification.produce_id}
+        message={`Hey, just to give a heads up, Farmer ${notification.farmer_name} has produced a crop ${notification.crop_name} of about ${notification.quantity} quintals with the Produce ID ${notification.produce_id}.`}
+        onClose={() => handleNotificationClose(notification.produce_id)}
       />
-      ))}
-
-        </ul>
-      </div>
+    ))}
+  </ul>
+</div>
 
       <footer>
         <p>&copy; 2023 Dealer Dashboard</p>

@@ -15,7 +15,7 @@ const ProfileButton = () => {
   const logout = () => {
     localStorage.removeItem('Email');
     localStorage.removeItem('role');
-    console.log(localStorage.getItem('Email'))
+    console.log(localStorage.getItem('Email'));
     navigate("/");
   }
 
@@ -26,9 +26,19 @@ const ProfileButton = () => {
       </button>
       {showDropdown && (
         <div className="profile-dropdown">
-          <Link to={'/'+localStorage.getItem('role').toLocaleLowerCase()+'_dashboard'}>Dashboard</Link>
-          <Link to="/" onClick={logout}>Logout</Link>
-          {/* Add more links as needed */}
+          {localStorage.getItem('role') ? (
+            <Link to={`/${localStorage.getItem('role').toLowerCase()}_dashboard`}>
+              Dashboard
+            </Link>
+          ) : (
+           
+            // You can replace "Default Dashboard" with the appropriate fallback link or handle it as needed.
+         
+        
+          <Link to="/" onClick={logout}>
+            Logout
+          </Link>
+           )}
         </div>
       )}
     </div>

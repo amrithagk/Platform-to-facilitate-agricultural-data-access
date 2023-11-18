@@ -203,7 +203,7 @@ const InitiateDealPage = () => {
             <table className="table">
               {renderTableHeaders()}
               <tbody>
-                {farmerProduces.map((produce, index) => (
+                {farmerProduces?null:farmerProduces.map((produce, index) => (
                   <tr key={index} onClick={() => handleTableRowClick(produce)}>
                     {Object.values(produce).map((value, innerIndex) => (
                       <td key={innerIndex}>{value}</td>

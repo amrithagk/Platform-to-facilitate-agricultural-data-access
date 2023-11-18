@@ -6,38 +6,43 @@ const supabase = createClient(
   process.env.PROJECT_URL,
   process.env.API_KEY
 );
-router.get("/all",async(req,res)=>{
-    try{
-        const {data:notclosed,error} = await supabase
+router.get("/all", async (req, res) => {
+    try {
+      const { data: notclosed, error } = await supabase
         .from('notification_farmer')
         .select('*')
-        .eq('closed',0);
-        console.log(notclosed);
-        if(error){
-            res.status(500).send({error:"Not found in Database"});
-        }
-        const produceIdsNotClosed = notclosed.map(item => item.produce_id);
-        if(notclosed)
-        {
-            const { data: notificationData, error: notificationError } = await supabase
-            .rpc('notification_table', {
-            p_produce_ids: produceIdsNotClosed,
-            });
-        }
-
-        // console.log("in all",data)
-        if(notificationError){
-            res.status(500).send({error:"Not found in Database"});
-        }
-        res.status(200).send({data})
+        .eq('closed', 0);
+  
+      console.log("data from notification page=", notclosed);
+  
+      if (error) {
+        return res.status(500).send({ error: "Not found in Database" });
+      }
+  
+      if (!notclosed || notclosed.length === 0) {
+        console.log("No notifications found");
+        return res.status(404).send({ error: "No notifications found" });
+      }
+  
+      const produceIdsNotClosed = notclosed.map(item => item.produce_id);
+  
+      const { data: notificationData, error: notificationError } = await supabase
+        .rpc('notification_table', {
+          p_produce_ids: produceIdsNotClosed,
+        });
+  
+      if (notificationError) {
+        return res.status(500).send({ error: "Not found in Database" });
+      }
+  
+      // Send the response only once
+      res.status(200).send({ data: notificationData });
+    } catch (err) {
+      console.log("error in notification page=", err);
+      res.status(500).send({ error: err.message }); // Only send the error message
     }
-    catch(err){
-        console.log(err)
-        res.status(500).send({error:"Code Error"});
-    }
-
-});
-
+  });
+  
 router.put('/modify',async(req,res)=>{
     try{
         console.log(req.body)
