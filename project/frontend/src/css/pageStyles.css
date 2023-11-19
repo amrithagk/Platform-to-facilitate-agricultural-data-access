@@ -1,0 +1,78 @@
+/* pageStyles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+h2 {
+  color: #333;
+}
+
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #ddd;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+tr.success-row td {
+  background-color: green;
+}
+
+tr.pending-row td {
+  background-color: yellow;
+}
+
+tr.failed-row td {
+  background-color: red;
+}
+
+
+.small-select {
+  width: 100px; /* Adjust the width as needed */
+}
