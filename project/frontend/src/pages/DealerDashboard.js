@@ -6,6 +6,7 @@ import Notification from './notification';
 import axios from 'axios';
 import '../css/dealer_dashboard.css';
 import StylishBox from '../components/boxstyle';
+import ProfileButton from '../components/profileButton';
 
 const DealerDashboard = () => {
   const [notifications, setNotifications] = useState([]);
@@ -166,6 +167,7 @@ const DealerDashboard = () => {
       </footer>
       </>
       )}
+    {localStorage.getItem('Email') && (<ProfileButton />)}
     </div>
   );
               

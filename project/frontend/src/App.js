@@ -26,7 +26,7 @@ function App() {
         </Routes>
 
         {/* Include the ProfileButton component */}
-        {localStorage.getItem('Email') && (<ProfileButton />)}
+     
       </div>
     </Router>
   );

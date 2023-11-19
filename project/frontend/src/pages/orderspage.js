@@ -4,6 +4,7 @@ import '../css/pageStyles.css'; // Import your CSS file
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
+  const [filterStatus, setFilterStatus] = useState('All'); // Default filter status is 'All'
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -12,7 +13,7 @@ const OrdersPage = () => {
         const response = await axios.get(`http://localhost:5000/get_orders/${email}`);
         setOrders(response.data.data);
       } catch (error) {
-        console.error('Error fetching orders:', error); 
+        console.error('Error fetching orders:', error);
       }
     };
 
@@ -36,7 +37,6 @@ const OrdersPage = () => {
   };
 
   const getRowColorClass = (dealStatus) => {
-    console.log("deal=",dealStatus)
     switch (dealStatus) {
       case 'Success':
         return 'success-row';
@@ -49,24 +49,49 @@ const OrdersPage = () => {
     }
   };
 
+  const handleFilterChange = (e) => {
+    setFilterStatus(e.target.value);
+  };
+
+  const filterOrders = () => {
+    if (filterStatus === 'All') {
+      return orders;
+    } else {
+      return orders.filter((order) => order.deal_status === filterStatus);
+    }
+  };
+
   const Table = () => (
-    <table className="table">
-      {renderTableHeaders()}
-      <tbody>
-        {orders.map((order, index) => (
-          <tr key={index} className={getRowColorClass(order.deal_status)}>
-            {Object.values(order).map((value, innerIndex) => (
-              <td key={innerIndex}>{value}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      
+
+      <table className="table">
+        {renderTableHeaders()}
+        <tbody>
+          {filterOrders().map((order, index) => (
+            <tr key={index} className={getRowColorClass(order.deal_status)}>
+              {Object.values(order).map((value, innerIndex) => (
+                <td key={innerIndex}>{value}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
     <div className="page-container">
       <h2>Orders Page</h2>
+      <div className="filter-container">
+        <label htmlFor="filterStatus">Filter by Deal Status: </label>
+        <select id="filterStatus" value={filterStatus} onChange={handleFilterChange} className="small-select">
+          <option value="All">All</option>
+          <option value="Success">Success</option>
+          <option value="Pending">Pending</option>
+          <option value="Failed">Failed</option>
+        </select>
+      </div>
       <Table />
     </div>
   );
