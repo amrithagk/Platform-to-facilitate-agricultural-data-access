@@ -184,3 +184,12 @@ select.drop-down {
   padding-left: 20px;
   font-size: 18px;
 }
+
+/* Add this style to position the profile button */
+.profile-button-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999; /* Ensure it appears on top of other elements */
+}
+/* Add these styles to your CSS file */

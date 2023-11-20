@@ -4,7 +4,7 @@ const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 const cors = require('cors');
 const app = express();
-const port = 3000; // Server port
+const port = 5000; // Server port
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,42 +17,35 @@ const supabase = createClient(
 );
 
 //routes
-const fertilizersRoute = require('./routes/fertilizers');
 const incentivesRoute = require('./routes/incentives');
 const warehouseRoute = require('./routes/warehouse');
 const farmerDashboardRoute = require('./routes/farmerdashboard');
+const fertilizersRoute = require('./routes/fertilizers');
+const loginRoute = require('./routes/login');
+const signupRoute = require('./routes/signup');
+const crops = require('./routes/crops');
+const pesticide = require('./routes/pesticide');
+const avail_produce = require('./routes/get_avail_produce');
+const get_orders = require('./routes/get_orders');
+const purchase = require('./routes/purchase_record');
+const orderpur = require('./routes/getordpur');
+const notify = require('./routes/notification');
 
-app.use('/fertilizers', fertilizersRoute)
+
+console.log("hiiiiii")
+app.use('/farmerdashboard', farmerDashboardRoute)
 app.use('/incentives', incentivesRoute)
 app.use('/warehouse', warehouseRoute)
-app.use('/farmerdashboard', farmerDashboardRoute)
-
-
-app.post('/crops', async (req, res) => {
-  const name = req.body.name;
-  console.log(name)
-  try {
-    //const user = supabase.auth.user();
-    const { data, error } = await supabase
-      .from('Crop')
-      .select('*')
-      .eq("Name", name);
-
-    if (error) {
-      return res.status(500).json({ error: 'Error searching the database.' });
-    }
-
-    if (data && data.length > 0) {
-      console.log("data", data)
-      return res.send(data);
-    } else {
-      return res.status(404).json({ message: 'No matching records found.' });
-    }
-  } catch (err) {
-    return res.status(500).json({ error: 'Server error.' });
-  }
-});
-
+app.use('/fertilizers', fertilizersRoute);
+app.use('/login/', loginRoute);
+app.use('/signup/', signupRoute);
+app.use('/crops/',crops);
+app.use('/pesticide/',pesticide);
+app.use('/get_avail_produce/',avail_produce);
+app.use('/get_orders/',get_orders);
+app.use('/purchase_record/',purchase);
+app.use('/getordpur/',orderpur);
+app.use('/get_notification/',notify);
 
 
 app.listen(port, () => {

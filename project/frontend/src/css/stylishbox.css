@@ -1,0 +1,33 @@
+.stylish-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    width: 300px;
+  }
+  
+  .box-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .box-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .box-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .value {
+    color: #007bff; /* or any color of your choice */
+  }
+  

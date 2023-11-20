@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
+import '../src/css/styles.css';
 
 export default function Navigation() {
   const [authState, setAuthState] = useState(0); 
@@ -65,8 +66,12 @@ export default function Navigation() {
               ) : (
                 //show  dealer dashboard
                 <>
-                <li><Link class="nav-link scrollto" to="/dealerdashboard">Dashboard</Link></li>
-                <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
+                <li><Link class="nav-link scrollto" to="/dealer_dashboard">Dashboard</Link></li>
+                <li><Link class="getstarted scrollto" to="/" onClick={()=>{
+                    setAuthState(0);
+                    localStorage.removeItem('Email')
+                    localStorage.removeItem('role')
+                  }}>Log out</Link></li>
                 </>
               )
               

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ResultTable from '../components/resulttable';
 import axios from 'axios';
+import '../css/styles.css';
 
 const Warehouse = () => {
   const [warehouseData, setAllWarehouse] = useState([]);
@@ -10,12 +11,12 @@ const Warehouse = () => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/warehouse")
+    axios.get("http://localhost:5000/warehouse")
     .then(res => { setAllWarehouse(res.data) })
   }, [])
 
   useEffect(() => {
-    axios.get("http://localhost:3000/warehouse/filterstates")
+    axios.get("http://localhost:5000/warehouse/filterstates")
     .then(res2 => { setAllStates(
       res2.data.map(element => (element.State))); 
       console.log("states", AllStates); })

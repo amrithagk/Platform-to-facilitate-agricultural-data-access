@@ -9,7 +9,7 @@ const Fertilizers = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/fertilizers',
+        'http://localhost:5000/fertilizers',
         { name }
       );
       setSearchResult(response.data);

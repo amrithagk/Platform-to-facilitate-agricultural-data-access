@@ -25,7 +25,7 @@ const ProduceForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/farmerdashboard/producedetails',
+        'http://localhost:5000/farmerdashboard/producedetails',
         formData
       );
       console.log('Form submitted successfully!', response.data);
@@ -130,7 +130,7 @@ export default function FarmerDashboard() {
     
     const getFarmerId = async (emailId) => {
       const fId = await axios.post(
-        'http://localhost:3000/farmerdashboard/getuserid',
+        'http://localhost:5000/farmerdashboard/getuserid',
         { emailId }
       )
         .then((res) => {
@@ -155,7 +155,7 @@ export default function FarmerDashboard() {
       setAddDetails(false);
       setNotificationDetails({});
       const response = await axios.post(
-        'http://localhost:3000/farmerdashboard',
+        'http://localhost:5000/farmerdashboard',
         { farmerId }
       );
       setProduceDetails(response.data);
@@ -181,7 +181,7 @@ export default function FarmerDashboard() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/farmerdashboard/notifications',
+        'http://localhost:5000/farmerdashboard/notifications',
         { role, currentId }
       );
       setNotificationDetails(response.data);
@@ -195,7 +195,7 @@ export default function FarmerDashboard() {
     console.log(decision, purchaseId);
     try {
       const response = await axios.post(
-        'http://localhost:3000/farmerdashboard/action',
+        'http://localhost:5000/farmerdashboard/action',
         { decision, purchaseId }
       );
       setNotificationDetails(response.data);

@@ -8,7 +8,7 @@ export default function Incentives() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/incentives');
+        const response = await axios.get('http://localhost:5000/incentives');
         setData(response.data);
         console.log("response", response.data);
       } catch (error) {
