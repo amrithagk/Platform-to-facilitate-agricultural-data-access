@@ -5,7 +5,8 @@ const Table = ({ crops }) => {
   const keysCrops = Object.keys(crops[0] || {}); // Handle the case when crops is an empty array
 
   return (
-    <table className="table">
+    <div className='table-container'>
+    <table>
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -27,6 +28,7 @@ const Table = ({ crops }) => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

@@ -43,18 +43,18 @@ const PesticidePage = () => {
 
   return (
     <div>
-      <h1>Pesticide Page</h1>
-
-      <label htmlFor="search">Search Pesticide:</label>
-      <input type="text" id="search" value={searchTerm} onChange={handleSearchChange} />
+      <h1>Pesticides</h1>
+<div className='filter-container'>
+      <label  className='filter-label' htmlFor="search">Search Pesticide:</label>
+      <input type="text" id="search" className='search' value={searchTerm} onChange={handleSearchChange} />
       {/* <label htmlFor="type">Select Type:</label> */}
       
   {/* Add more types as needed */}
 {/* </select> */}
 
 
-      <label htmlFor="Pests">Select Pests:</label>
-      <select id="type" onChange={handlePestsChange}>
+      <label  className='filter-label' htmlFor="Pests">Select Pests:</label>
+      <select className='drop-down' id="type" onChange={handlePestsChange}>
         <option value="All">All</option>
         {
         AllPests.map((value, index) => (
@@ -64,7 +64,7 @@ const PesticidePage = () => {
         ))}
 
        </select>
-
+       </div>
       <Table crops={filteredPesticide} />
     </div>
   );

@@ -70,7 +70,7 @@ const LoginSignUp = () => {
           navigate(`/${role.toLocaleLowerCase()}_dashboard`);
         }
         catch(err){
-          console.log('Login Failed Error');
+          console.log(err, 'Login Failed Error');
         }
         // Save the token in localStorage or state for future requests
       } else {

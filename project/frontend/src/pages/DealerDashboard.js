@@ -114,7 +114,7 @@ const DealerDashboard = () => {
     // </div>
     <div className="dealer-dashboard">
       {localStorage.getItem('Email')  && localStorage.getItem('role')==="Dealer" && ( <>
-      <header>
+      <header className='dd-header'>
        <h1>Dealer Dashboard</h1>
      </header>  
      <nav>
@@ -130,7 +130,7 @@ const DealerDashboard = () => {
        <Link to="/dealer_dashboard/initiate-deal" className="nav-link">
          Initiate Deal
        </Link>
-     </nav>   <main>
+     </nav>   <main className='dealer-main'>
        <div className="dashboard-section">
          <Link to="/dealer_dashboard/orders" className="dashboard-box orders-box">
            <h2>See Orders</h2>

@@ -15,8 +15,8 @@ router.post('/:role', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from(role)
-      .select('email , password')
-      .eq('email', Email);
+      .select('Email' , 'Password')
+      .eq('Email', Email);
     console.log(data);
     if (error) {
       return res.status(500).json({ error: 'Error searching the database.' });

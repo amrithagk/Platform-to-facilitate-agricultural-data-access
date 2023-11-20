@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 const cors = require('cors');
 const app = express();
@@ -11,10 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-const supabase = createClient(
-  process.env.PROJECT_URL,
-  process.env.API_KEY
-);
 
 //routes
 const incentivesRoute = require('./routes/incentives');
@@ -40,7 +35,7 @@ app.use('/fertilizers', fertilizersRoute);
 app.use('/login/', loginRoute);
 app.use('/signup/', signupRoute);
 app.use('/crops/',crops);
-app.use('/pesticide/',pesticide);
+app.use('/pesticide',pesticide);
 app.use('/get_avail_produce/',avail_produce);
 app.use('/get_orders/',get_orders);
 app.use('/purchase_record/',purchase);

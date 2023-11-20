@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ResultTable from "../components/resulttable";
+import '../css/styles.css';
 
 export default function Incentives() {
   const [data, setData] = useState({});
@@ -17,12 +18,12 @@ export default function Incentives() {
     };
 
     fetchData();
-  }); 
+  }, []); 
   // Empty dependency if the effect should run only once when the component mounts
 
   return (
     <div>
-      <p>Incentive Schemes</p>
+      <p className="page-header">Incentive Schemes</p>
       {
         data.length > 0?  
         <ResultTable searchResult={data}/>

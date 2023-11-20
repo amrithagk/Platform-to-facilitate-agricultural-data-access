@@ -41,18 +41,16 @@ export default function Navigation() {
       <nav id="navbar" class="navbar">
         <ul>
           <li><Link class="nav-link scrollto active" to="/home">Home</Link></li>
-          <li><Link class="nav-link scrollto" to="/about">About</Link></li>
           <li><Link class="nav-link scrollto " to="/crops">Crop Details</Link></li>
           <li><Link class="nav-link scrollto" to="/fertilizers">Fertilizers</Link></li>
-          <li><Link class="nav-link scrollto" to="/pesticides">Pesticides</Link></li>
+          <li><Link class="nav-link scrollto" to="/pesticide">Pesticides</Link></li>
           <li><Link class="nav-link scrollto" to="/warehouse">Warehouse</Link></li>
           <li><Link class="nav-link scrollto" to="/incentives">Incentive Schemes</Link></li>
           <li><Link class="nav-link scrollto" to="/farmerdashboard">Dashboard</Link></li>
           { authState === 0 ? 
             (
               <>
-            <li><Link class="getstarted scrollto" to="/login">Login</Link></li>
-            <li><Link class="getstarted scrollto" to="/signup">Sign Up</Link></li>
+            <li><Link class="getstarted scrollto" to="/login">Login / SignUp</Link></li>
               </>
             )
             :

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../components/cropsdata';
 import axios from 'axios';
+import '../css/styles.css';
 
 const CropsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,10 +77,12 @@ const CropsPage = () => {
     <div>
       <h1>Crops Page</h1>
 
+      <div className='filter-container'>
+        
       <label htmlFor="search">Search Crops:</label>
-      <input type="text" id="search" value={searchTerm} onChange={handleSearchChange} />
+      <input type="text" id="search" className='search' value={searchTerm} onChange={handleSearchChange} />
       <label htmlFor="type">Select Type:</label>
-      <select id="type" onChange={handleTypeChange} value={selectedType}>
+      <select id="type" className='drop-down' onChange={handleTypeChange} value={selectedType}>
         <option value="All">All</option>
         {
         Alltypes.map((value, index) => (
@@ -92,7 +95,7 @@ const CropsPage = () => {
 
 
       <label htmlFor="Season">Select Season:</label>
-      <select id="Seasons" onChange={handleSeasonChange}>
+      <select id="Seasons" className='drop-down' onChange={handleSeasonChange}>
         <option value="All">All</option>
         {
         AllSeasons.map((value, index) => (
@@ -104,7 +107,7 @@ const CropsPage = () => {
        </select>
 
        <label htmlFor="Soil Type">Select Soil Type:</label>
-      <select id="Soil Type" onChange={handleSoilChange}>
+      <select id="Soil Type" className='drop-down' onChange={handleSoilChange}>
         <option value="All">All</option>
         {
         SoilType.map((value, index) => (
@@ -116,7 +119,7 @@ const CropsPage = () => {
        </select>     
         
        <label htmlFor="Water Req">Select Water Requirement:</label>
-      <select id="Water Req" onChange={handleWaterChange}>
+      <select id="Water Req" className='drop-down' onChange={handleWaterChange}>
         <option value="All">All</option>
         {
         Water.map((value, index) => (
@@ -126,6 +129,8 @@ const CropsPage = () => {
         ))}
 
        </select>
+       
+      </div>
       <Table crops={filteredCrops} />
     </div>
   );
