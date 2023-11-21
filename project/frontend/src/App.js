@@ -30,7 +30,7 @@ function App() {
           <Route path = '/dealer_dashboard/initiate-deal' element = {<InitiateDealPage/>}/>
           <Route path = '/dealer_dashboard/orders' element = {<OrdersPage/>}/>
           <Route path="/fertilizers" element={<Fertilizers />}></Route>
-          <Route path="/farmerdashboard" element={<FarmerDashboard />}></Route>
+          <Route path="/farmer_dashboard" element={<FarmerDashboard />}></Route>
           <Route path="/incentives" element={<Incentives />}></Route>
           <Route path="/warehouse" element={<Warehouse />}></Route>
         </Routes>

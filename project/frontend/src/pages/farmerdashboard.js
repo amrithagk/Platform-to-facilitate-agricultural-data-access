@@ -12,7 +12,7 @@ const ProduceForm = () => {
     Year: '',
     Crop_Name: '',
     Scientific_Name: '',
-    Farmer_id: '',
+    Farmer_id: 1,
     Warehouse_id: '',
   });
 
@@ -37,7 +37,7 @@ const ProduceForm = () => {
         Quantity: '',
         Year: '',
         Crop_Name: '',
-        Farmer_id: '',
+        Farmer_id: 1,
         Warehouse_id: '',
       });
     } catch (error) {
@@ -89,14 +89,8 @@ const ProduceForm = () => {
               <input type="text" name="Crop_Name" value={formData.Crop_Name} onChange={handleChange} />
             </td>
           </tr>
-          <tr>
-            <td>
-              <label>Farmer ID:</label>
-            </td>
-            <td>
-              <input type="text" name="Farmer_id" value={formData.Farmer_id} onChange={handleChange} />
-            </td>
-          </tr>
+         
+            
           <tr>
             <td>
               <label>Warehouse ID:</label>
@@ -117,8 +111,8 @@ const ProduceForm = () => {
 };
 
 export default function FarmerDashboard() {
-  const farmerId = 1; //take farmerID from login details
-  const userId = farmerId;
+   //take farmerID from login details
+  
   const [produceDetails, setProduceDetails] = useState({});
   const [addDetails, setAddDetails] = useState(false);
   const [notificationDetails, setNotificationDetails] = useState({});
@@ -142,7 +136,7 @@ export default function FarmerDashboard() {
 
     if (role === 'Farmer') {
       //email = localStorage.getItem("Email");
-      let email = 'abc@email.com';
+      let email = localStorage.getItem('Email')
       getFarmerId(email);
       console.log("curID", currentId);
       localStorage.setItem("currentId", currentId);
@@ -156,7 +150,7 @@ export default function FarmerDashboard() {
       setNotificationDetails({});
       const response = await axios.post(
         'http://localhost:5000/farmerdashboard',
-        { farmerId }
+        { currentId }
       );
       setProduceDetails(response.data);
       console.log("response", response.data)

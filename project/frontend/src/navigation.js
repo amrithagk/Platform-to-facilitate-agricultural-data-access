@@ -46,7 +46,7 @@ export default function Navigation() {
           <li><Link class="nav-link scrollto" to="/pesticide">Pesticides</Link></li>
           <li><Link class="nav-link scrollto" to="/warehouse">Warehouse</Link></li>
           <li><Link class="nav-link scrollto" to="/incentives">Incentive Schemes</Link></li>
-          <li><Link class="nav-link scrollto" to="/farmerdashboard">Dashboard</Link></li>
+          <li><Link class="nav-link scrollto" to="/farmer_dashboard">Dashboard</Link></li>
           { authState === 0 ? 
             (
               <>
@@ -58,7 +58,7 @@ export default function Navigation() {
               authState === 1 ? (
                 //show farmer dashboard
                 <>
-                <li><Link class="nav-link scrollto" to="/farmerdashboard">Dashboard</Link></li>
+                <li><Link class="nav-link scrollto" to="/farmer_dashboard">Dashboard</Link></li>
                 <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
                 </>
               ) : (

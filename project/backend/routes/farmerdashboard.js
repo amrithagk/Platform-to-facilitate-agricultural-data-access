@@ -8,7 +8,7 @@ const supabase = createClient(
 );
 
 router.post('/', async (req, res) => {
-    const farmerId = req.body.farmerId;
+    const farmerId = req.body.currentId;
     console.log("farmerid = ", farmerId)
   
     try {
