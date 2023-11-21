@@ -22,31 +22,39 @@ export default function Navigation() {
         } else {
           return 0;
         }
-      } catch {
+      } catch(err){
+        console.log("auth error", err);
         return 0;
       }
     };
     
     setAuthState(getAuthState());
     console.log("authstate", authState);
-  });
+  }, []);
+
+  const handleLogout = () => {
+    setAuthState(0);
+    console.log("authstate after farmer logout", authState);
+    localStorage.removeItem('Email');
+    localStorage.removeItem('role');
+  }
 
   return (
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">Logo</a></h1>
+      <h1 class="logo me-auto"><a href="index.html">CropSphere</a></h1>
       {/*<Link href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></Link>*/}
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><Link class="nav-link scrollto active" to="/home">Home</Link></li>
+          <li><Link class="nav-link scrollto active" to="/">Home</Link></li>
           <li><Link class="nav-link scrollto " to="/crops">Crop Details</Link></li>
           <li><Link class="nav-link scrollto" to="/fertilizers">Fertilizers</Link></li>
           <li><Link class="nav-link scrollto" to="/pesticide">Pesticides</Link></li>
           <li><Link class="nav-link scrollto" to="/warehouse">Warehouse</Link></li>
           <li><Link class="nav-link scrollto" to="/incentives">Incentive Schemes</Link></li>
-          <li><Link class="nav-link scrollto" to="/farmer_dashboard">Dashboard</Link></li>
+          
           { authState === 0 ? 
             (
               <>
@@ -59,17 +67,17 @@ export default function Navigation() {
                 //show farmer dashboard
                 <>
                 <li><Link class="nav-link scrollto" to="/farmer_dashboard">Dashboard</Link></li>
-                <li><Link class="getstarted scrollto" to="/" onClick={()=>setAuthState(0)}>Log out</Link></li>
+                <li><Link class="getstarted scrollto" to="/" onClick={()=>{
+                    setAuthState(0);
+                    localStorage.removeItem('Email');
+                    localStorage.removeItem('role');
+                  }}>Log out</Link></li>
                 </>
               ) : (
                 //show  dealer dashboard
                 <>
                 <li><Link class="nav-link scrollto" to="/dealer_dashboard">Dashboard</Link></li>
-                <li><Link class="getstarted scrollto" to="/" onClick={()=>{
-                    setAuthState(0);
-                    localStorage.removeItem('Email')
-                    localStorage.removeItem('role')
-                  }}>Log out</Link></li>
+                <li><Link class="getstarted scrollto" to="/" onClick={handleLogout}>Log out</Link></li>
                 </>
               )
               

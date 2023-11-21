@@ -64,12 +64,14 @@ const LoginSignUp = () => {
         try{
         const response = await axios.post(`http://localhost:5000/login/${role}`, userData);
         const token = response.data.token;
-        console.log('Login successful! Token:', token);
+        alert('Login successful! Token:', token);
         localStorage.setItem('Email',userData.Email);
         localStorage.setItem('role',role);
           navigate(`/${role.toLocaleLowerCase()}_dashboard`);
+          window.location.reload();
         }
         catch(err){
+          alert('Login Failed');
           console.log(err, 'Login Failed Error');
         }
         // Save the token in localStorage or state for future requests

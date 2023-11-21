@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Navigation from './navigation';
 import Fertilizers from './pages/fertilizers';
 import Crops from './pages/crops';
@@ -19,7 +19,6 @@ import OrdersPage from './pages/orderspage';
 function App() {
   return (
       <div className="App">
-      <h1>Platform to facilitate agricultural data access</h1>
       <Navigation/>
         <Routes>
           <Route path="/" element={<Home />} />
