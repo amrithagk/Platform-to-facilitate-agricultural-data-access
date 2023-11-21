@@ -18,7 +18,7 @@ import OrdersPage from './pages/orderspage';
 
 function App() {
   return (
-      <div className="App">
+      <div className="App bg-white">
       <Navigation/>
         <Routes>
           <Route path="/" element={<Home />} />

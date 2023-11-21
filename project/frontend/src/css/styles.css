@@ -1,3 +1,7 @@
+  body{
+    background-color: white;
+  }
+  
   /* page-header */
   .page-header {
     margin: 30px;
@@ -71,16 +75,17 @@ li {
   margin-right: 10px;
 }
 
-.btn {
+.dashboard-btn {
   padding: 8px 16px;
   border: white 2px solid;
   border-radius: 4px;
   cursor: pointer;
   color: black;
   background-color: white;
+  font-size: large;
 }
 
-.btn:hover {
+.dashboard-btn:hover {
   color: white;
   background-color: rgb(139, 213, 139);
   border: white 2px solid;

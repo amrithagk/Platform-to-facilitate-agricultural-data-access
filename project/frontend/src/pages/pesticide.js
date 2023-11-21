@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../components/cropsdata';
 import axios from 'axios';
+import '../css/styles.css';
 
 const PesticidePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,7 +44,7 @@ const PesticidePage = () => {
 
   return (
     <div>
-      <h1>Pesticides</h1>
+      <h1 className='page-header'>Pesticides</h1>
 <div className='filter-container'>
       <label  className='filter-label' htmlFor="search">Search Pesticide:</label>
       <input type="text" id="search" className='search' value={searchTerm} onChange={handleSearchChange} />

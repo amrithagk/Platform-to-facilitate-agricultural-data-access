@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
     details.Scientific_Name = sc_name[0].Scientific_Name;
     const dataToInsert = details;
     console.log("new produce details", dataToInsert);
-  
+    let inserted = false;
     try {
       const { error } = await supabase
         .from('Produce')
@@ -65,10 +65,12 @@ router.post('/', async (req, res) => {
         console.error('Error inserting data:', error.message);
       } else {
         console.log('Data inserted successfully:', data);
+        inserted = true;
       }
     } catch (error) {
       console.error('Error inserting data:', error.message);
     }
+
   
   })
 

@@ -75,7 +75,7 @@ const CropsPage = () => {
 
   return (
     <div>
-      <h1>Crops Page</h1>
+      <h1 className='page-header'>Crops Page</h1>
 
       <div className='filter-container'>
         

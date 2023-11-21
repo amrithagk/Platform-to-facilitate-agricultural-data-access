@@ -1,6 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
-import '../src/css/styles.css';
+import './css/styles.css';
 
 export default function Navigation() {
   const [authState, setAuthState] = useState(0); 
@@ -43,10 +43,9 @@ export default function Navigation() {
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">CropSphere</a></h1>
-      {/*<Link href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></Link>*/}
+      <h1 class="logo me-auto mt-20 mb-30"><a href="index.html">CropSphere</a></h1>
 
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar mt-15 mb-30">
         <ul>
           <li><Link class="nav-link scrollto active" to="/">Home</Link></li>
           <li><Link class="nav-link scrollto " to="/crops">Crop Details</Link></li>
@@ -58,7 +57,7 @@ export default function Navigation() {
           { authState === 0 ? 
             (
               <>
-            <li><Link class="getstarted scrollto" to="/login">Login / SignUp</Link></li>
+            <li><Link class="nav-link scrollto getstarted" to="/login">Login / SignUp</Link></li>
               </>
             )
             :

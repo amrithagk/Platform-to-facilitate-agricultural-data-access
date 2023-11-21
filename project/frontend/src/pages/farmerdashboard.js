@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ResultTable from "../components/resulttable";
 import axios from 'axios';
+import '../css/styles.css';
 
 
 const ProduceForm = () => {
-
+  const currentId = localStorage.getItem('currentId');
+  console.log("produce form", currentId);
   const [formData, setFormData] = useState({
     Season: '',
     Location: '',
@@ -12,7 +14,7 @@ const ProduceForm = () => {
     Year: '',
     Crop_Name: '',
     Scientific_Name: '',
-    Farmer_id: 1,
+    Farmer_id: currentId,
     Warehouse_id: '',
   });
 
@@ -37,7 +39,7 @@ const ProduceForm = () => {
         Quantity: '',
         Year: '',
         Crop_Name: '',
-        Farmer_id: 1,
+        Farmer_id: currentId,
         Warehouse_id: '',
       });
     } catch (error) {
@@ -46,6 +48,7 @@ const ProduceForm = () => {
   };
 
   return (
+    <div>
     <form onSubmit={handleSubmit} className="produce-form">
       <table>
         <tbody>
@@ -89,8 +92,6 @@ const ProduceForm = () => {
               <input type="text" name="Crop_Name" value={formData.Crop_Name} onChange={handleChange} />
             </td>
           </tr>
-         
-            
           <tr>
             <td>
               <label>Warehouse ID:</label>
@@ -107,6 +108,7 @@ const ProduceForm = () => {
         </tbody>
       </table>
     </form>
+    </div>
   );
 };
 
@@ -128,7 +130,7 @@ export default function FarmerDashboard() {
         { emailId }
       )
         .then((res) => {
-          console.log("id response", res.data);
+          console.log("id response", res.data[0].Farmer_id);
           setCurrentId(res.data[0].Farmer_id)
         });
 
@@ -141,7 +143,7 @@ export default function FarmerDashboard() {
       console.log("curID", currentId);
       localStorage.setItem("currentId", currentId);
     }
-  }, []);
+  });
 
 
   const fetchDetails = async () => {
@@ -202,13 +204,13 @@ export default function FarmerDashboard() {
 
   return (
     <div className="main-div">
-      <h1 className="text-center">Farmer Dashboard</h1>
+      <h1 className="text-center page-header">Farmer Dashboard</h1>
       <div className="options-container">
         <div className="dashboard-options">
           <ul>
-            <li><button onClick={fetchDetails} type="submit" class="btn">View Produce Details</button></li>
-            <li><button onClick={handleAddButton} type="submit" class="btn">Add produce details</button></li>
-            <li><button onClick={getNotifications} type="submit" class="btn">Notifications</button></li>
+            <li><button onClick={fetchDetails} type="submit" className="dashboard-btn">View Produce Details</button></li>
+            <li><button onClick={handleAddButton} type="submit" className="dashboard-btn">Add produce details</button></li>
+            <li><button onClick={getNotifications} type="submit" className="dashboard-btn">Notifications</button></li>
           </ul>
         </div>
       </div>
