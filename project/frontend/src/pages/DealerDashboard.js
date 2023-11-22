@@ -13,9 +13,16 @@ const DealerDashboard = () => {
   const [totalorder,settotalorder] = useState(0.00);
   const [totalpurchase,settotalpurchase] = useState(0);
   const fetchNotifications = async () => {
-    try {
+    /* try {
       const response = await axios.get('http://localhost:5000/get_notification/all');
       setNotifications(response.data.data);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+    } */
+    try {
+      const response = await axios.get('http://localhost:5000/get_notification/newproducelist');
+      setNotifications(response.data);
+      console.log("notification", notifications);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -155,7 +162,7 @@ const DealerDashboard = () => {
     {notifications.map((notification) => (
       <Notification
         key={notification.produce_id}
-        message={`Hey, just to give a heads up, Farmer ${notification.farmer_name} has produced a crop ${notification.crop_name} of about ${notification.quantity} quintals with the Produce ID ${notification.produce_id}.`}
+        message={`Hey, just to give a heads up, Farmer ${notification.Farmer_id} has produced a crop ${notification.Scientific_Name} of about ${notification.Quantity} quintals with the Produce ID ${notification.Produce_id}.`}
         onClose={() => handleNotificationClose(notification.produce_id)}
       />
     ))}

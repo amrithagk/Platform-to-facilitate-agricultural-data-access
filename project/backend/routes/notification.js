@@ -6,10 +6,56 @@ const supabase = createClient(
   process.env.PROJECT_URL,
   process.env.API_KEY
 );
+
+router.get('/newproducelist', async (req, res) => {
+  let pid = [];
+  try {
+    const {data, error} = await supabase
+    .from("notification_dealer")
+    .select('*');
+
+    if (error) {
+      console.log(error)
+    } else {
+      
+      if (data.length > 0)  {
+        data.forEach(element => {
+          console.log(element.Produce_id);
+          pid.push(element.Produce_id);
+        });
+      } 
+      
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (pid.length > 0) {
+    try {
+      const {data, error} = await supabase
+      .from("Produce")
+      .select('*')
+      .in('Produce_id', pid);
+  
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("notifi", data);
+        res.send(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    res.send('No notifications');
+  }
+  
+})
+
 router.get("/all", async (req, res) => {
     try {
       const { data: notclosed, error } = await supabase
-        .from('notification_farmer')
+        .from('notification_dealer')
         .select('*')
         .eq('closed', 0);
   
