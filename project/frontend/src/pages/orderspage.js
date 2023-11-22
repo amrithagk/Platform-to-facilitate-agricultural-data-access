@@ -37,12 +37,13 @@ const OrdersPage = () => {
   };
 
   const getRowColorClass = (dealStatus) => {
+    console.log("hiii")
     switch (dealStatus) {
       case 'Accepted':
         return 'success-row';
       case 'Pending':
         return 'pending-row';
-      case 'Failed':
+      case 'Rejected':
         return 'failed-row';
       default:
         return '';

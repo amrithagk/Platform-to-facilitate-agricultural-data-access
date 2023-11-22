@@ -117,7 +117,7 @@
 // export default InitiateDealPage;
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../css/styles.css'; // Import your CSS file
+import '../css/pageStyles.css'; // Import your CSS file
 import { useNavigate } from 'react-router-dom';
 
 const InitiateDealPage = () => {
@@ -131,6 +131,7 @@ const InitiateDealPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("hi")
     axios
       .get('http://localhost:5000/get_avail_produce/')
       .then((res) => {
