@@ -13,6 +13,7 @@ router.get("/",async(req,res)=>{
         const { data, error } = await supabase
   .rpc('get_produces')
   .select('*');
+  console.log(data);
         // console.log("hiii");
         if(error){
             // console.log(error," in q");

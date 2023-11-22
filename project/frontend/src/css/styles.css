@@ -242,3 +242,14 @@ select.drop-down {
   z-index: 999; /* Ensure it appears on top of other elements */
 }
 /* Add these styles to your CSS file */
+tr.success-row td {
+  background-color: green;
+}
+
+tr.pending-row td {
+  background-color: yellow;
+}
+
+tr.failed-row td {
+  background-color: red;
+}

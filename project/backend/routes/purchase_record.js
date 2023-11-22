@@ -17,7 +17,7 @@ router.post("/",async(req,res)=>{
         const response = await supabase
           .from('Dealer')
           .select('dealer_id')
-          .eq('email',email);
+          .eq('Email',email);
         const dealer_data = response.data[0]
         if(response.error){
           res.status(500).send({error:dealerError})

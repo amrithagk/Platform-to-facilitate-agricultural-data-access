@@ -12,7 +12,7 @@ router.post('/:role', async (req, res) => {
   const role = req.params.role;
   if(role === 'Farmer'){
   const { email, password, Name, Date_of_Birth, Id_Proof} = req.body;
-  console.log(email,password,Name,Date_of_Birth,Id_Proof);
+  console.log(Email,password,Name,Date_of_Birth,Id_Proof);
   // Uncomment the following code when you are ready to implement the signup logic
   const { data, error } = await supabase
     .from(role)
@@ -25,15 +25,15 @@ router.post('/:role', async (req, res) => {
   }
   else{
     const { Email, Password, Name, region, contact} = req.body;
-
+    
     const {data,error} = await supabase
     .from('Dealer')
     .upsert([
       {
       dealer_name:Name,
       region: region,
-      email: Email,
-      password: Password
+      Email: Email,
+      Password: Password
     }
     ])
     .select();
