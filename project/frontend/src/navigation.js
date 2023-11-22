@@ -43,7 +43,7 @@ export default function Navigation() {
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto mt-3 mb-30"><a href="index.html">CropSphere</a></h1>
+      <h1 class="logo me-auto mt-3 mb-30"><a href="/">CropSphere</a></h1>
 
       <nav id="navbar" class="navbar mt-15 mb-30">
         <ul>
