@@ -12,7 +12,8 @@ router.get('/newproducelist', async (req, res) => {
   try {
     const {data, error} = await supabase
     .from("notification_dealer")
-    .select('*');
+    .select('*')
+    .eq('closed',0);
 
     if (error) {
       console.log(error)
@@ -89,14 +90,16 @@ router.get("/all", async (req, res) => {
     }
   });
   
-router.put('/modify',async(req,res)=>{
+router.post('/modify',async(req,res)=>{
     try{
-        console.log(req.body)
+        console.log("hiiii",req.body)
         const {id} = req.body;
+        // console.log(id);
         const {data:modifiednotif,error:errnotify} = await supabase
-        .from('notification_farmer')
+        .from('notification_dealer')
         .update({ closed: 1 })
         .eq('id', id);
+        console.log(modifiednotif);
 
         if(errnotify){
             res.status(500).send({error:errnotify});

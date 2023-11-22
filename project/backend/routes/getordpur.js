@@ -7,12 +7,16 @@ const supabase = createClient(
   process.env.API_KEY
 );
 
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
+  const dealer_mail = req.params.id
+  console.log(dealer_mail)
 
   try {
     const { data, error } = await supabase
-      .from('totals')
-      .select('*');
+      .rpc('get_totals',{
+        deal: dealer_mail
+      });
+
     console.log(data)
     if (error) {
       return res.status(500).send({ error: 'Error searching the database.' });

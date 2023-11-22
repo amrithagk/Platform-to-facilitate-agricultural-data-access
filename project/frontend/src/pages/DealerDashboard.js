@@ -35,7 +35,7 @@ const DealerDashboard = () => {
   useEffect(()=>{
     const getpurchaseorder = async () =>{
       try{
-        const resp = await axios.get('http://localhost:5000/getordpur/');
+        const resp = await axios.get(`http://localhost:5000/getordpur/${localStorage.getItem('Email')}`);
         console.log(resp.data);
         if(resp.data.data)
        { 
@@ -51,7 +51,7 @@ const DealerDashboard = () => {
   })
   const handleNotificationClose = async(id) =>{
     try{
-    await axios.put('http://localhost:5000/get_notification/modify', { id });
+    const response = await axios.post('http://localhost:5000/get_notification/modify', { id });
     console.log('Notification closed successfully on the backend.');
     // After successful closure on the backend, you may choose to refetch the notifications if needed
     fetchNotifications();
@@ -152,7 +152,7 @@ const DealerDashboard = () => {
          </Link>
        </div>
        <div className="dashboard-section">
-      <StylishBox totalAmount={totalpurchase} totalOrder={totalorder}/>
+      <StylishBox totalAmount={totalpurchase} totalOrders={totalorder}/>
     </div>
      </main>
           {/* Render notifications from the backend */}
