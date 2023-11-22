@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../css/pageStyles.css'; // Import your CSS file
+import '../css/styles.css'; // Import your CSS file
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -38,7 +38,7 @@ const OrdersPage = () => {
 
   const getRowColorClass = (dealStatus) => {
     switch (dealStatus) {
-      case 'Success':
+      case 'Accepted':
         return 'success-row';
       case 'Pending':
         return 'pending-row';
@@ -84,10 +84,17 @@ const OrdersPage = () => {
     <div className="page-container">
       <h2>Orders Page</h2>
       <div className="filter-container">
-        <label htmlFor="filterStatus">Filter by Deal Status: </label>
-        <select id="filterStatus" value={filterStatus} onChange={handleFilterChange} className="small-select">
+        <label htmlFor="filterStatus" className="filter-label">
+          Filter by Deal Status:
+        </label>
+        <select
+          id="filterStatus"
+          value={filterStatus}
+          onChange={handleFilterChange}
+          className="drop-down"
+        >
           <option value="All">All</option>
-          <option value="Success">Success</option>
+          <option value="Accepted">Accepted</option>
           <option value="Pending">Pending</option>
           <option value="Failed">Failed</option>
         </select>

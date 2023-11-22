@@ -117,7 +117,7 @@
 // export default InitiateDealPage;
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../css/pageStyles.css'; // Import your CSS file
+import '../css/styles.css'; // Import your CSS file
 import { useNavigate } from 'react-router-dom';
 
 const InitiateDealPage = () => {
@@ -176,9 +176,9 @@ const InitiateDealPage = () => {
 
   const renderTableHeaders = () => {
     if (!farmerProduces.length) return null;
-
+  
     const columns = Object.keys(farmerProduces[0]);
-
+  
     return (
       <thead>
         <tr>
@@ -189,21 +189,21 @@ const InitiateDealPage = () => {
       </thead>
     );
   };
-
+  
   return (
     <div className="page-container">
       {localStorage.getItem('Email') && localStorage.getItem('role') === 'Dealer' && (
         <>
           <h2>Initiate Deal Page</h2>
-
+  
           {loading && <p>Loading...</p>}
           {error && <p>{error}</p>}
-
+  
           {!showForm && !loading && !error && (
             <table className="table">
               {renderTableHeaders()}
               <tbody>
-                {farmerProduces?null:farmerProduces.map((produce, index) => (
+                {farmerProduces.map((produce, index) => (
                   <tr key={index} onClick={() => handleTableRowClick(produce)}>
                     {Object.values(produce).map((value, innerIndex) => (
                       <td key={innerIndex}>{value}</td>
@@ -213,20 +213,20 @@ const InitiateDealPage = () => {
               </tbody>
             </table>
           )}
-
+  
           {showForm && !loading && !error && (
             <form onSubmit={initiateDeal}>
               <h3>Initiate Deal Form</h3>
-
+  
               <label htmlFor="Produce_ID">Produce ID:</label>
               <input type="text" id="Produce_ID" name="Produce_ID" value={selectedProduce.Produce_id} readOnly />
-
-              <label htmlFor="Crop Name">Crop Name</label>
-              <input type="text" id="Crop Name" name="Crop Name" value={selectedProduce.Scientific_Name} readOnly />
-
-              <label htmlFor="quantity">Quantity:</label>
-              <input type="text" id="quantity" name="quantity" value={selectedProduce.Quantity} readOnly />
-
+  
+              <label htmlFor="Crop_Name">Crop Name:</label>
+              <input type="text" id="Crop_Name" name="Crop_Name" value={selectedProduce.Scientific_Name} readOnly />
+  
+              <label htmlFor="Quantity">Quantity:</label>
+              <input type="text" id="Quantity" name="Quantity" value={selectedProduce.Quantity} readOnly />
+  
               <label htmlFor="offerAmount">Offer Amount:</label>
               <input
                 type="text"
@@ -235,7 +235,7 @@ const InitiateDealPage = () => {
                 value={offerAmount}
                 onChange={(e) => setOfferAmount(e.target.value)}
               />
-
+  
               <button type="submit">Initiate Deal</button>
             </form>
           )}
@@ -243,6 +243,5 @@ const InitiateDealPage = () => {
       )}
     </div>
   );
-};
-
+  } 
 export default InitiateDealPage;

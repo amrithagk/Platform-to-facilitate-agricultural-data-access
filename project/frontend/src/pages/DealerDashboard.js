@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Notification from './notification';
 import axios from 'axios';
-import '../css/dealer_dashboard.css';
+import '../css/styles.css';
 import StylishBox from '../components/boxstyle';
 import ProfileButton from '../components/profileButton';
 
@@ -61,120 +61,49 @@ const DealerDashboard = () => {
   }
   }
   return (
-    // <div className="dealer-dashboard">
-    //   {localStorage.getItem('Email') && localStorage.getItem('role') === 'Dealer' &&
-    //   (
-    //   <><header>
-    //     <h1>Dealer Dashboard</h1>
-    //   </header>
+    
+    <div className="main-div">
+      <header className="dd-header">
+        <h1>Dealer Dashboard</h1>
+      </header>
 
-    //   <nav>
-    //     <Link to="/dealer_dashboard" className="nav-link">
-    //       Home
-    //     </Link>
-    //     <Link to="/dealer_dashboard/orders" className="nav-link">
-    //       Orders
-    //     </Link>
-    //     <Link to="/dealer_dashboard/inventory" className="nav-link">
-    //       Inventory
-    //     </Link>
-    //     <Link to="/dealer_dashboard/initiate-deal" className="nav-link">
-    //       Initiate Deal
-    //     </Link>
-    //   </nav>
 
-    //   <main>
-    //     <div className="dashboard-section">
-    //       <Link to="/dealer_dashboard/orders" className="dashboard-box orders-box">
-    //         <h2>See Orders</h2>
-    //       </Link>
-    //     </div>
+      <main className="dealer-main">
+        <div className='options-container'>
+        <div className="dashboard-options">
+          <ul>
+            <li>
+              <Link to="/dealer_dashboard/orders" className='dashboard-btn'>View Orders</Link>
+            </li>
+            <li>
+              <Link to="/dealer_dashboard/initiate-deal" className= 'dashboard-btn'>Initiate Deal</Link>
+            </li>
+            
+          </ul>
 
-    //     <div className="dashboard-section">
-    //       <Link to="/dealer_dashboard/inventory" className="dashboard-box inventory-box">
-    //         <h2>Inventory</h2>
-    //       </Link>
-    //     </div>
+          <StylishBox totalAmount={totalpurchase} totalOrders={totalorder} />
+        </div>
+        </div>
+      </main>
 
-    //     <div className="dashboard-section">
-    //       <Link to="/dealer_dashboard/initiate-deal" className="dashboard-box deal-box">
-    //         <h2>Initiate Deal</h2>
-    //       </Link>
-    //     </div>
-    //   </main>
-      
-
-    //   {/* Render notifications from the backend */}
-    //   <div className="notification-section">
-    //     <h2>Notifications</h2>
-    //     <ul>
-    //       {notifications.map((notification) => (
-    //         <Notification key={notification.id} message={notification.message} type={notification.type} />
-    //       ))}
-    //     </ul>
-    //   </div>
-
-    //   <footer>
-    //     <p>&copy; 2023 Dealer Dashboard</p>
-    //   </footer>
-    //   </>)}
-    // </div>
-    <div className="dealer-dashboard">
-      {localStorage.getItem('Email')  && localStorage.getItem('role')==="Dealer" && ( <>
-      <header className='dd-header'>
-       <h1>Dealer Dashboard</h1>
-     </header>  
-     <nav>
-       <Link to="/dealer_dashboard" className="nav-link">
-         Home
-       </Link>
-       <Link to="/dealer_dashboard/orders" className="nav-link">
-         Orders
-       </Link>
-       <Link to="/dealer_dashboard/inventory" className="nav-link">
-         Inventory
-       </Link>
-       <Link to="/dealer_dashboard/initiate-deal" className="nav-link">
-         Initiate Deal
-       </Link>
-     </nav>   <main className='dealer-main'>
-       <div className="dashboard-section">
-         <Link to="/dealer_dashboard/orders" className="dashboard-box orders-box">
-           <h2>See Orders</h2>
-         </Link>
-       </div>      <div className="dashboard-section">
-         <Link to="/dealer_dashboard/inventory" className="dashboard-box inventory-box">
-           <h2>Inventory</h2>
-         </Link>
-       </div>      <div className="dashboard-section">
-         <Link to="/dealer_dashboard/initiate-deal" className="dashboard-box deal-box">
-           <h2>Initiate Deal</h2>
-         </Link>
-       </div>
-       <div className="dashboard-section">
-      <StylishBox totalAmount={totalpurchase} totalOrders={totalorder}/>
-    </div>
-     </main>
-          {/* Render notifications from the backend */}
-          <div className="notification-section">
-  <h2>Notifications</h2>
-  <ul>
-    {notifications.map((notification) => (
-      <Notification
-        key={notification.produce_id}
-        message={`Hey, just to give a heads up, Farmer ${notification.Farmer_id} has produced a crop ${notification.Scientific_Name} of about ${notification.Quantity} quintals with the Produce ID ${notification.Produce_id}.`}
-        onClose={() => handleNotificationClose(notification.produce_id)}
-      />
-    ))}
-  </ul>
-</div>
+      <div className="notification-section">
+        <h2>Notifications</h2>
+        <ul>
+          {notifications.map((notification) => (
+            <Notification
+              key={notification.produce_id}
+              message={`Hey, just to give a heads up, Farmer ${notification.Farmer_id} has produced a crop ${notification.Scientific_Name} of about ${notification.Quantity} quintals with the Produce ID ${notification.Produce_id}.`}
+              onClose={() => handleNotificationClose(notification.produce_id)}
+            />
+          ))}
+        </ul>
+      </div>
 
       <footer>
         <p>&copy; 2023 Dealer Dashboard</p>
       </footer>
-      </>
-      )}
-    {localStorage.getItem('Email') && (<ProfileButton />)}
+
+      {localStorage.getItem('Email') && <ProfileButton />}
     </div>
   );
               
