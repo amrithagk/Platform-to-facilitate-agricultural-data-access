@@ -17,11 +17,11 @@ function Row(props) {
                         <button onClick={()=>{
                             props.handleDecision("Accepted", props.arr[0]); //passing the decision and corresponding purchaseID
                             setButtonVisible(false);
-                            }} className="btn accept-btn">Accept</button>
+                            }} className="dashboard-btn accept-btn">Accept</button>
                         <button onClick={()=>{
                             props.handleDecision("Rejected", props.arr[0])
                             setButtonVisible(false);
-                            }} className="btn reject-btn">Reject</button>
+                            }} className="dashboard-btn reject-btn">Reject</button>
                     </div>
                 </td>
                 : ''

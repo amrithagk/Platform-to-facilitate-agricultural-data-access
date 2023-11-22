@@ -134,23 +134,27 @@ form>table>tbody>tr>td {
   background-color: rgb(113, 188, 113);
   margin-left: 10px;
   margin-right: 10px;
+  transition-duration: 0.75s;
 }
 
 .accept-btn:hover {
   background-color: rgb(113, 188, 113);
   transform: scale(1.2);
   color: black;
+  transition-duration: 0.75s;
 }
 
 .reject-btn {
   background-color: rgb(245, 123, 116);
   margin-left: 10px;
   margin-right: 10px;
+  transition-duration: 0.75s;
 }
 
 .reject-btn:hover {
   background-color: rgb(245, 123, 116);
   transform: scale(1.2);
+  transition-duration: 0.75s;
   color: black;
 }
 
