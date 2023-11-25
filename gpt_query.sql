@@ -11,7 +11,7 @@ CREATE TABLE `Crop` (
 
 -- .
 CREATE TABLE `Dealer` (
-  `dealer_id` SERIAL,
+  `dealer_id` int AUTO_INCREMENT,
   `dealer_name` VARCHAR(40) NULL,
   `region` VARCHAR(20) NULL,
   `Email` VARCHAR(255) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `Dealer_Contact_Details` (
 
 -- 5.
 CREATE TABLE `Farmer` (
-  `Farmer_id` SERIAL,
+  `Farmer_id` int AUTO_INCREMENT,
   `Farmer_name` VARCHAR(50) NULL,
   `Email` VARCHAR(50) NOT NULL,
   `Password` VARCHAR(20) NOT NULL,
@@ -64,8 +64,8 @@ CREATE TABLE `Warehouse` (
 
 -- 8.
 CREATE TABLE `Land` (
-  `Farmer_ID` INT AUTO_INCREMENT,
-  `Location` TEXT NOT NULL,
+  `Farmer_ID` INT,
+  `Location` varchar(20) NOT NULL,
   `Area_acres` DOUBLE NOT NULL,
   PRIMARY KEY (`Farmer_ID`, `Location`),
   FOREIGN KEY (`Farmer_ID`) REFERENCES `Farmer` (`Farmer_id`) ON UPDATE CASCADE ON DELETE CASCADE
@@ -135,12 +135,12 @@ CREATE TABLE `Protection` (
 
 -- 13.
 CREATE TABLE `Purchase_record` (
-  `Dealer_ID` INT AUTO_INCREMENT,
+  `Dealer_ID` INT ,
   `Produce_ID` BIGINT NOT NULL,
   `Quantity` DOUBLE NOT NULL,
   `Unit_price` DOUBLE NOT NULL,
   `Date` DATE NOT NULL,
-  `deal_status` TEXT NULL DEFAULT 'Pending',
+  `deal_status` varchar(10) NULL DEFAULT 'Pending',
   `purchase_id` INT AUTO_INCREMENT,
   PRIMARY KEY (`Dealer_ID`, `Produce_ID`, `purchase_id`),
   UNIQUE KEY `Purchase_record_purchase_id_key` (`purchase_id`),
@@ -170,7 +170,7 @@ CREATE TABLE `notification_dealer` (
 CREATE TABLE `notification_farmer` (
   `dealer_id` INT NOT NULL,
   `Farmer_id` INT NULL,
-  `Produce_ID` INT NOT NULL,
+  `Produce_ID` bigint NOT NULL,
   `Quantity` INT NULL,
   `Unit_price` INT NULL,
   `purchase_id` INT NULL,
@@ -204,95 +204,99 @@ END;
 
 -- Functions
 
+
 -- 1. Farmer notifications
-CREATE FUNCTION `get_farmer_notifications` (farmer_id INT)
-RETURNS TABLE (
-  `purchase_id` INT,
-  `Produce_ID` INT,
-  `dealer_id` INT,
-  `Quantity_kg` INT,
-  `Unit_price_per_kg` INT
-)
+DELIMITER //
+
+CREATE PROCEDURE get_farmer_notifications(IN farmer_id INT)
 BEGIN
-  RETURN
   SELECT
-    `nf`.`purchase_id`,
-    `nf`.`Produce_ID`,
-    `nf`.`dealer_id`,
-    `nf`.`Quantity_kg`,
-    `nf`.`Unit_price_per_kg`
+    nf.purchase_id,
+    nf.Produce_ID,
+    nf.dealer_id,
+    nf.Quantity_kg,
+    nf.Unit_price_per_kg
   FROM
-    `notification_farmer` nf
+    notification_farmer nf
   WHERE
-    `Produce_ID` IN (
+    nf.Produce_ID IN (
       SELECT
-        `Produce_ID`
+        pr.Produce_ID
       FROM
-        `Purchase_record` pr
+        Purchase_record pr
       WHERE
-        `pr`.`deal_status` = 'Pending'
+        pr.deal_status = 'Pending'
     )
-    AND `nf`.`Farmer_id` = farmer_id;
-END;
+    AND nf.Farmer_id = farmer_id;
+END //
+
+DELIMITER ;
 
 -- 2. Get orders
-CREATE FUNCTION `get_orders` (email_param VARCHAR(255))
-RETURNS TABLE (
-    `Produce_ID` BIGINT,
-    `Quantity` DOUBLE,
-    `Unit_price` DOUBLE,
-    `Date` DATE,
-    `Deal_Status` TEXT
-)
-BEGIN
-    RETURN
-    SELECT `Purchase_record`.`Produce_ID`,
-           `Purchase_record`.`Quantity`,
-           `Purchase_record`.`Unit_price`,
-           `Purchase_record`.`Date`,
-           `Purchase_record`.`deal_status`
-    FROM `Purchase_record`
-    JOIN `Dealer` ON `Purchase_record`.`Dealer_ID` = `Dealer`.`dealer_id`
-    WHERE `Dealer`.`Email` = email_param;
-END;
+DELIMITER //
 
--- 3. Get Unique Pests
-CREATE FUNCTION `get_unique_pests` ()
-RETURNS TABLE (`pest` TEXT)
-BEGIN
-  RETURN
-  SELECT DISTINCT
-    UNNEST(string_to_array(unnest(string_to_array(`Pests`, ',')), '"')) AS pest
-  FROM
-    `Pesticide`;
-END;
-
--- 4. Get Produces which haven't been purchased
-CREATE FUNCTION `get_produces` ()
-RETURNS TABLE (`whole_table` `Produce`)
-BEGIN
-  RETURN
-  SELECT *
-  FROM `Produce`
-  WHERE `Produce_id` NOT IN (SELECT `Produce_id` FROM `Purchase_record`);
-END;
-
--- 5. Get totals
-CREATE FUNCTION `get_totals` (deal VARCHAR(255))
-RETURNS TABLE (`totpur` NUMERIC, `totord` INT)
+CREATE PROCEDURE get_orders(IN email_param VARCHAR(255))
 BEGIN
   SELECT
-    COALESCE(SUM(`Unit_price`), 0) AS totpur,
+    Purchase_record.Produce_ID,
+    Purchase_record.Quantity,
+    Purchase_record.Unit_price,
+    Purchase_record.Date,
+    Purchase_record.deal_status
+  FROM
+    Purchase_record
+  JOIN
+    Dealer ON Purchase_record.Dealer_ID = Dealer.dealer_id
+  WHERE
+    Dealer.Email = email_param;
+END //
+
+DELIMITER ;
+
+-- 3. Get Unique Pests
+DELIMITER //
+
+CREATE PROCEDURE get_unique_pests()
+BEGIN
+  SELECT DISTINCT
+    UNNEST(string_to_array(unnest(string_to_array(Pests, ',')), '"')) AS pest
+  FROM
+    Pesticide;
+END //
+
+DELIMITER ;
+
+-- 4. Get Produces which haven't been purchased
+DELIMITER //
+
+CREATE PROCEDURE get_produces()
+BEGIN
+  SELECT *
+  FROM Produce
+  WHERE Produce_id NOT IN (SELECT Produce_id FROM Purchase_record);
+END //
+
+DELIMITER ;
+
+-- 5. Get totals
+DELIMITER //
+
+CREATE PROCEDURE get_totals(IN deal VARCHAR(255))
+BEGIN
+  SELECT
+    COALESCE(SUM(Unit_price), 0) AS totpur,
     COUNT(*) AS totord
   FROM
-    `Purchase_record`
-    JOIN
-    `Dealer`
-    ON `Purchase_record`.`Dealer_ID` = `Dealer`.dealer_id
-    WHERE
-    `deal_status` = 'Accepted'
-    AND `Email` = deal;
-END;
+    Purchase_record
+  JOIN
+    Dealer ON Purchase_record.Dealer_ID = Dealer.dealer_id
+  WHERE
+    deal_status = 'Accepted'
+    AND Email = deal;
+END //
+
+DELIMITER ;
+
 
 -- Views
 -- 1. Chemical list
