@@ -7,7 +7,7 @@ Create a supabase account.\
 Create a `.env` file in `project/backend` to store the API keys.
 
 ### Creating tables, functions and views
-Use the `queries.sql` file
+Use the `final_queries.sql` file
 
 ### Installing dependencies
 Backend  
