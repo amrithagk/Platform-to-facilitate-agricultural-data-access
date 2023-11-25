@@ -186,21 +186,36 @@ CREATE TABLE `notification_farmer` (
 
 -- 1.
 
+-- CREATE TRIGGER `produce_insert_trigger`
+-- AFTER INSERT ON `Produce` FOR EACH ROW
+-- BEGIN
+--     INSERT INTO `notification_dealer` (`Produce_id`)
+--     VALUES (NEW.`Produce_id`);
+-- END;
+
+DELIMITER //
+
 CREATE TRIGGER `produce_insert_trigger`
 AFTER INSERT ON `Produce` FOR EACH ROW
 BEGIN
     INSERT INTO `notification_dealer` (`Produce_id`)
     VALUES (NEW.`Produce_id`);
-END;
+END //
+
+DELIMITER ;
 
 -- 2.
+
+DELIMITER //
+
 CREATE TRIGGER `trg_after_purchase_insert`
 AFTER INSERT ON `Purchase_record` FOR EACH ROW
 BEGIN
     DECLARE farm_id INT;
     SELECT `Farmer_id` INTO farm_id FROM `Produce` WHERE `Produce`.`Produce_id` = NEW.`Produce_ID`;
     INSERT INTO `notification_farmer` VALUES (NEW.`Dealer_ID`, farm_id, NEW.`Produce_ID`, NEW.`Quantity`, NEW.`Unit_price`, NEW.`purchase_id`);
-END;
+END //
+DELIMITER;
 
 -- Functions
 
