@@ -97,7 +97,7 @@ const OrdersPage = () => {
           <option value="All">All</option>
           <option value="Accepted">Accepted</option>
           <option value="Pending">Pending</option>
-          <option value="Failed">Failed</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
       <Table />
