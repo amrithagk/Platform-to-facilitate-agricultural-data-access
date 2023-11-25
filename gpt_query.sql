@@ -189,8 +189,8 @@ CREATE TABLE `notification_farmer` (
 CREATE TRIGGER `produce_insert_trigger`
 AFTER INSERT ON `Produce` FOR EACH ROW
 BEGIN
-    INSERT INTO `notification` (`Produce_id`, `Farmer_ID`, `role`)
-    VALUES (NEW.`Produce_id`, NEW.`Farmer_id`, 'farmer');
+    INSERT INTO `notification_dealer` (`Produce_id`)
+    VALUES (NEW.`Produce_id`);
 END;
 
 -- 2.
