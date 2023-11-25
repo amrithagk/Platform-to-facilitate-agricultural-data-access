@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="mt-5 row justify-content-center">
       <div className="row border-top pl-2">
-        <img src='crops.jpg' style={{ width: 230, height: 500 }}></img>
+        <img src='crops.jpg' style={{ width: 252, height: 570 }}></img>
         <div className="col-md-8 text-center">
           <h1 className='page-header'>Platform to Facilitate Agriculture Data Accessibility</h1>
           <p className="lead">
@@ -23,7 +23,7 @@ function Home() {
             </Link>
           </p>
         </div>
-        <img src='crops.jpg' style={{ width: 230, height: 500 }}></img>
+        <img src='crops.jpg' style={{ width: 252, height: 570 }}></img>
       </div>
     </div>
   );
